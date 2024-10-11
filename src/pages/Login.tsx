@@ -26,7 +26,7 @@ export default () => {
                 height: '100vh',
                 // backgroundImage: 'url(https://job3.com.br/hml-job3online/@/src/assets/img/Order-Banner.jpg)', CASO QUEIRAM IMAGEM
                 backgroundSize: 'cover',
-                backgroundColor: theme.palette.primary.main,
+                backgroundColor: (theme) => theme.palette.primary.main,
                 backgroundPosition: 'center',
                 width: '66.66vw',
                 position: 'absolute',
