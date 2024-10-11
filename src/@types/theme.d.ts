@@ -1,23 +1,23 @@
 import { PaletteOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
-    interface Palette {
+    interface IPalette {
         primary: {
             main: string;
         };
     }
 
-    interface PaletteOptions {
+    interface IPaletteOptions {
         primary?: {
             main?: string;
         };
     }
 
-    interface Theme {
+    interface ITheme {
         palette: Palette;
     }
 
-    interface ThemeOptions {
+    interface IThemeOptions {
         palette?: PaletteOptions;
     }
 }
