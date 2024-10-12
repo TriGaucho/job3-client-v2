@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import Header from "../shared/components/Header"
 import Logo from "../assets/img/Job3_logo_black.svg"
+import Footer from "../shared/components/Footer"
 
 export default () => {
     return (
@@ -28,9 +29,10 @@ export default () => {
                     maxWidth: 600,
                     margin: '0 auto',
                 }}>
-                    Bem-vindo a Job!
+                    Bem-vindo a JOB3!
                 </Typography>
             </Box>
+            <Footer />
         </>
     )
 }
