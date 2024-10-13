@@ -1,30 +1,28 @@
 import { useState } from "react";
 import { Drawer, List, ListItemText, Typography, Box, ListItemButton, ListItemIcon, Link, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTheme } from "@emotion/react";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import HomeRepairServiceRoundedIcon from '@mui/icons-material/HomeRepairServiceRounded';
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
+import { IMenu } from "../../@types/menu";
 
 export default () => {
-    const theme = useTheme()
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-    // Função para alternar a visibilidade do Drawer
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
 
-    const menuItems = [
+    const menuItems: IMenu[] = [
         {
             label: "Home",
-            path: "/",
+            path: "/home",
             icon: <HomeRoundedIcon />
         },
         {
-            label: "Empresa",
-            path: "/empresa",
-            icon: <HomeRepairServiceRoundedIcon />
+            label: "Proposta",
+            path: "/proposta",
+            icon: <NoteAltRoundedIcon />
         }
     ]
 

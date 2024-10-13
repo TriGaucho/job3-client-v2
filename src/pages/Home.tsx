@@ -7,7 +7,7 @@ export default () => {
     return (
         <>
             <Header />
-            {/* <Box sx={{
+            <Box sx={{
                 padding: '1rem',
                 display: 'flex',
                 justifyContent: 'center',
@@ -31,7 +31,7 @@ export default () => {
                 }}>
                     Bem-vindo a JOB3!
                 </Typography>
-            </Box> */}
+            </Box>
             <Footer />
         </>
     )
