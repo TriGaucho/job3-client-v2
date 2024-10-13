@@ -56,12 +56,18 @@ export default () => {
                     padding: '0 1rem',
                 }}>
                     <IconButton
-                        size="large"
                         edge="start"
                         aria-label="menu"
                         sx={{
                             mr: 2,
                             color: '#fff',
+                            width: "fit-content",
+                            padding: 0,
+                            '&:hover': {
+                                color: '#e9e9e9',
+                                transition: 'color 0.3s ease-in-out',
+                                background: 'transparent',
+                            }
                         }}
                     >
                         <Menu />
@@ -88,11 +94,17 @@ export default () => {
                     }}>
                         <Typography
                             variant="h6"
-                            sx={{}}>
+                            sx={{
+                                fontSize: {
+                                    xs: '12px',
+                                    md: '16px',
+                                    lg: '20px'
+                                }
+                            }}>
                             {business} | {user}
                         </Typography>
                         <IconButton
-                            onClick={handleLogout} // Adiciona a função de logout aqui
+                            onClick={handleLogout} 
                             size="large"
                             edge="end"
                             aria-label="login"

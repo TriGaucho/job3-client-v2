@@ -92,7 +92,7 @@ export default () => {
                         flexGrow: 1
                     }}>
                         {menuItems.map(menuItem => (
-                            <Link href={menuItem.path} sx={{
+                            <Link key={menuItem.label} href={menuItem.path} sx={{
                                 textDecoration: "none",
                                 color: "#333",
                                 transition: "translate 0.3s ease-in-out",
