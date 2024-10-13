@@ -5,7 +5,7 @@ export default () => {
   const [year, setYear] = useState<number>(new Date().getFullYear())
   
   return (
-    <Container
+    <Box
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -14,8 +14,9 @@ export default () => {
           xs: 'column',
           md: 'row',
         },
-        width: '100%',
-        padding: '1rem',
+        flexGrow: 1,
+        width: '100% !important',
+        padding: '1rem 1.5rem',
         background: (theme) => theme.palette.primary.main
       }}
       component='footer'
@@ -48,6 +49,6 @@ export default () => {
             alt="Logo JOB3"
           />
         </Box>
-    </Container>
+    </Box>
     )
 }
