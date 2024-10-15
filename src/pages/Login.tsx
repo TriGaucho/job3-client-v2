@@ -5,8 +5,6 @@ import { useTheme } from '@emotion/react';
 import Job3_logo_black from '../assets/img/Job3_logo_black.svg';
 
 export default () => {
-    const theme = useTheme()
-
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -55,6 +53,15 @@ export default () => {
                 width: { sm: '100vw', lg: '33.34vw' },
                 padding: { sm: '1rem' }
             }}>
+                <Box sx={{
+                    display: { xs: 'block', lg: 'none' },
+                    backgroundImage: `url(${Job3_logo_black})`,
+                    width: '200px',
+                    height: '200px',
+                    backgroundSize: '100%',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                }} />
                 <Box
                     component="form"
                     onSubmit={handleSubmit}

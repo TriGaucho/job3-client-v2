@@ -125,8 +125,7 @@ const FormProposta = () => {
                             variant="outlined"
                             value={cliente}
                             onChange={(e) => setCliente(e.target.value)}
-                            disabled={!empresaId} // Desabilita se nenhuma empresa estiver selecionada
-                        >
+                            disabled={!empresaId} >
                             <MenuItem value="">Selecione</MenuItem>
                             {clientes.map((clienteNome, index) => (
                                 <MenuItem key={index} value={clienteNome}>
