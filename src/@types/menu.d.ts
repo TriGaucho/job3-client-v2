@@ -1,8 +1,10 @@
-import { SvgIconComponent } from "@mui/icons-material"
-import { ComponentType, ReactElement } from "react"
+import React from 'react'
 
-interface IMenu {
-    label: string
-    path: string
-    icon: ReactElement<SvgIconComponent> | null
+export type MenuItem = {
+    name: string
+    route: string
+    icon?: React.JSX.Element
+    page: React.JSX.Element
 }
+
+export type MenuLayout = MenuItem[]

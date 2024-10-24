@@ -1,17 +1,8 @@
-import React from "react"
 import Proposta from "../pages/Proposal/Index"
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Home from "../pages/Home";
-
-export type MenuItem = {
-    name: string
-    route: string
-    icon?: React.JSX.Element
-    page: React.JSX.Element
-}
-
-export type MenuLayout = MenuItem[]
+import { MenuLayout } from "../@types/menu";
 
 export const menuLayout: MenuLayout = [
     {
