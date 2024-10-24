@@ -104,7 +104,7 @@ export default () => {
                             {business} | {user}
                         </Typography>
                         <IconButton
-                            onClick={handleLogout} 
+                            onClick={handleLogout}
                             size="large"
                             edge="end"
                             aria-label="login"

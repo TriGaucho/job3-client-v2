@@ -3,18 +3,22 @@ import { TextField, Button, Box, Typography, InputAdornment } from '@mui/materia
 import { AccountCircle, Business, Lock } from '@mui/icons-material';
 import { useTheme } from '@emotion/react';
 import Job3_logo_black from '../assets/img/Job3_logo_black.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        console.log('Usuário:', username);
-        console.log('Email:', email);
-        console.log('Senha:', password);
+        console.log('Usuário: ', username);
+        console.log('Email: ', email);
+        console.log('Senha: ', password);
+
+        navigate('/home');
     };
 
     const BackgroudSide = () => (
