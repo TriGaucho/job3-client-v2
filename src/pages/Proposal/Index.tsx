@@ -5,6 +5,8 @@ import Header from '../../shared/components/Header';
 import Footer from '../../shared/components/Footer';
 import FormProposta from './FormProposta';
 import { useState } from 'react';
+import { WidthFull } from '@mui/icons-material';
+import { HeaderList } from './HeaderList';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -56,7 +58,7 @@ export default function Proposta() {
     return (
         <>
             <Header />
-            <Box sx={{ width: '100%', height: '100vh' }}>
+            <Box sx={{ width: '100%', minHeight: '100vh' }}>
                 <Box sx={{
                     borderBottom: 1,
                     borderColor: 'divider',
@@ -75,13 +77,17 @@ export default function Proposta() {
                         }
                     </Tabs>
                 </Box>
-                {/* // percorrer em um arrya */}
-                <CustomTabPanel value={value} index={0}>
-                    <FormProposta />
-                </CustomTabPanel>
-                <CustomTabPanel value={value} index={1}>
-                    Listagem
-                </CustomTabPanel>
+                <Box sx={{
+                }}>
+                    <CustomTabPanel value={value} index={0} sx={{
+                        width: "100%"
+                    }}>
+                        <FormProposta />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={1}>
+                        <HeaderList />
+                    </CustomTabPanel>
+                </Box>
             </Box>
             <Footer />
         </>

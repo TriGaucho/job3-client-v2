@@ -19,7 +19,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import dayjs from 'dayjs';
-import { AddShoppingCartRounded, DeleteRounded, SaveAltRounded, ClearRounded } from '@mui/icons-material';
+import { AddShoppingCartRounded, DeleteRounded, SaveAltRounded, ClearRounded, SimCard } from '@mui/icons-material';
+import ToastMessage from '../../shared/components/ToastMessage';
 
 interface ProdutoSelecionado {
     produto: string;
@@ -60,8 +61,20 @@ const FormProposta = () => {
     const [produtosDaProposta, setProdutosDaProposta] = useState<ProdutoSelecionado[]>([]);
     const [clientes, setClientes] = useState<string[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
+    const [openToast, setOpenToast] = useState(false);
+    const [toastStatus, setToastStatus] = useState<'success' | 'alert' | 'warn'>('success');
+    const [message, setMessage] = useState('Operação realizada com sucesso!');
 
-    // Carrega os produtos salvos no localStorage
+    const handleOpenToast = (status: 'success' | 'alert' | 'warn', msg: string) => {
+        setToastStatus(status);
+        setMessage(msg);
+        setOpenToast(true);
+    };
+
+    const handleCloseToast = () => {
+        setOpenToast(false);
+    };
+
     useEffect(() => {
         const produtosSalvos = localStorage.getItem('produtosDaProposta');
         if (produtosSalvos) {
@@ -120,8 +133,43 @@ const FormProposta = () => {
     };
 
     const handleSave = () => {
-        localStorage.setItem('produtosDaProposta', JSON.stringify(produtosDaProposta));
+        handleOpenToast('success', 'Proposta salva com sucesso!');
+
+        const newProposal = {
+            cliente: cliente,
+            importado: quantidade,
+            total: valor
+        };
+
+        const existingProposals = localStorage.getItem('propostaData');
+        let proposalsArray: any[] = [];
+
+        try {
+            if (existingProposals) {
+                proposalsArray = JSON.parse(existingProposals);
+
+                if (!Array.isArray(proposalsArray)) {
+                    proposalsArray = [];
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao fazer parse do localStorage:', error);
+            proposalsArray = [];
+        }
+
+        const isDuplicate = proposalsArray.some((proposal) => proposal.cliente === newProposal.cliente);
+
+        if (!isDuplicate) {
+            proposalsArray.push(newProposal);
+
+            localStorage.setItem('propostaData', JSON.stringify(proposalsArray));
+            handleOpenToast('success', 'Proposta salva com sucesso!');
+        } else {
+            handleOpenToast('warn', 'Proposta já existe para esse cliente!');
+        }
     };
+
+
 
     const handleClear = () => {
         setProdutosDaProposta([]);
@@ -131,7 +179,6 @@ const FormProposta = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Box p={3}>
-                {/* Data Previsão da Proposta e Tabela Preço */}
                 <Box
                     display="flex"
                     flexDirection={{ xs: 'column', sm: 'row' }}
@@ -228,7 +275,7 @@ const FormProposta = () => {
                         variant="outlined"
                         type="number"
                         value={valor}
-                        InputProps={{ readOnly: true }} // Para tornar o campo somente leitura
+                        InputProps={{ readOnly: true }}
                     />
                     <TextField
                         fullWidth
@@ -326,6 +373,12 @@ const FormProposta = () => {
                     </Button>
                 </Box>
             </Box>
+            <ToastMessage
+                status={toastStatus}
+                message={message}
+                open={openToast}
+                onClose={handleCloseToast}
+            />
         </LocalizationProvider>
     );
 };

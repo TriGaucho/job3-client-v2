@@ -1,9 +1,10 @@
 import { CssBaseline, ThemeProvider } from "@mui/material"
 import theme from "./shared/theme/theme"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import { menuLayout } from "./routes/menu"
 import { MenuLayout } from "./@types/menu"
+import NotFound from "./pages/NotFound"
 
 
 export default () => {
@@ -20,6 +21,8 @@ export default () => {
                 <Routes>
                     <Route path="/" element={<Login />}></Route>
                     {createRoutes(menuLayout)}
+                    <Route path="*" element={<Navigate to="not-found" />} />
+                    <Route path="not-found" element={<NotFound />}></Route>
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
