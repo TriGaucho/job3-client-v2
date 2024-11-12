@@ -11,7 +11,7 @@ interface Proposta {
 
 type Order = 'asc' | 'desc';
 
-export const HeaderList: React.FC = () => {
+export const List: React.FC = () => {
     const [proposta, setProposta] = useState<Proposta[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [orderBy, setOrderBy] = useState<keyof Proposta>('cliente');

@@ -3,9 +3,8 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Header from '../../shared/components/Header';
 import Footer from '../../shared/components/Footer';
-import { Form } from './Form';
 import { useState } from 'react';
-import { List } from './List';
+import { Form } from './Form';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -36,7 +35,7 @@ function handleNavigateProposal(index: number) {
     };
 }
 
-export default function Proposta() {
+export default function Clientes() {
     const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -50,7 +49,7 @@ export default function Proposta() {
         },
         {
             id: 1,
-            label: 'Propostas'
+            label: 'Clientes'
         }
     ]
 
@@ -82,7 +81,9 @@ export default function Proposta() {
                         <Form />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
-                        <List />
+                        <h1>
+                            list
+                        </h1>
                     </CustomTabPanel>
                 </Box>
             </Box>

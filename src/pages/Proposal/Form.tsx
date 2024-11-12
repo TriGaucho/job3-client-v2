@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Box,
     TextField,
@@ -19,7 +19,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import dayjs from 'dayjs';
-import { AddShoppingCartRounded, DeleteRounded, SaveAltRounded, ClearRounded, SimCard } from '@mui/icons-material';
+import { AddShoppingCartRounded, DeleteRounded, SaveAltRounded, ClearRounded } from '@mui/icons-material';
 import ToastMessage from '../../shared/components/ToastMessage';
 
 interface ProdutoSelecionado {
@@ -50,7 +50,7 @@ const produtosComPrecos = [
     { id: 3, nome: 'Produto 3', preco: 150.00 },
 ];
 
-const FormProposta = () => {
+export const Form = () => {
     const [dataPrevisao, setDataPrevisao] = useState(dayjs());
     const [empresaId, setEmpresaId] = useState('');
     const [cliente, setCliente] = useState('');
@@ -188,8 +188,8 @@ const FormProposta = () => {
                     <DatePicker
                         label="Data Previsão da proposta"
                         value={dataPrevisao}
-                        onChange={(newValue) => setDataPrevisao(newValue)}
-                        renderInput={(params) => <TextField fullWidth {...params} />}
+                        onChange={(newValue: any) => setDataPrevisao(newValue)}
+                        // renderInput={(params: any) => <TextField fullWidth {...params} />}
                     />
                     <TextField
                         fullWidth
@@ -205,7 +205,7 @@ const FormProposta = () => {
                     gap={2}
                     mb={2}
                 >
-                    <Box flex={1}>
+                    {/* <Box flex={1}>
                         <InputLabel>Empresa</InputLabel>
                         <Select
                             fullWidth
@@ -220,7 +220,7 @@ const FormProposta = () => {
                                 </MenuItem>
                             ))}
                         </Select>
-                    </Box>
+                    </Box> */}
 
                     <Box flex={1}>
                         <InputLabel>Cliente</InputLabel>
@@ -382,5 +382,3 @@ const FormProposta = () => {
         </LocalizationProvider>
     );
 };
-
-export default FormProposta;
