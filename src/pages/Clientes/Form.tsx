@@ -1,47 +1,89 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
   Container,
-  Grid,
   TextField,
   Typography,
+  Autocomplete,
 } from '@mui/material';
+import InputMask from 'react-input-mask';
+import { useClienteContext } from '../../shared/context/ClienteContext';
 
 export const Form = () => {
+  const { clienteAtual } = useClienteContext();
+
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    phone: '',
+    fantasia: '',
     address: '',
+    neighborhood: '',
     city: '',
     state: '',
     zip: '',
+    email: '',
+    ieRg: '',
+    cpfCnpj: '',
+    phone: '',
+    types: [],
   });
+
+  const [cpfCnpjMask, setCpfCnpjMask] = useState('999.999.999-99');
+
+  useEffect(() => {
+    // Preenche o formulário com os dados do cliente atual, se existir
+    if (clienteAtual) {
+      setFormData(clienteAtual);
+      const onlyNumbers = clienteAtual.cpfCnpj.replace(/\D/g, '');
+      setCpfCnpjMask(onlyNumbers.length > 11 ? '99.999.999/9999-99' : '999.999.999-99');
+    }
+  }, [clienteAtual]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'cpfCnpj') {
+      const onlyNumbers = value.replace(/\D/g, '');
+      setCpfCnpjMask(
+        onlyNumbers.length > 11
+          ? '99.999.999/9999-99' // CNPJ
+          : '999.999.999-99'     // CPF
+      );
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
+  const handleTypesChange = (event, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      types: value,
+    }));
+  };
+
   const handleSubmit = () => {
-    // Lógica de envio de dados
     console.log('Dados do cliente:', formData);
   };
 
   const handleClear = () => {
     setFormData({
       name: '',
-      email: '',
-      phone: '',
+      fantasia: '',
       address: '',
+      neighborhood: '',
       city: '',
       state: '',
       zip: '',
+      email: '',
+      ieRg: '',
+      cpfCnpj: '',
+      phone: '',
+      types: [],
     });
+    setCpfCnpjMask('999.999.999-99'); // Restabelece a máscara inicial de CPF
   };
 
   return (
@@ -50,17 +92,78 @@ export const Form = () => {
         <Typography variant="h5" sx={{ mb: 3 }}>
           Cadastro de Cliente
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
+        >
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
             <TextField
-              label="Nome"
+              label="Nome *"
               name="name"
               value={formData.name}
               onChange={handleChange}
               fullWidth
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="Fantasia"
+              name="fantasia"
+              value={formData.fantasia}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="Endereço *"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="Bairro *"
+              name="neighborhood"
+              value={formData.neighborhood}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="Cidade *"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="UF *"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="CEP *"
+              name="zip"
+              value={formData.zip}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
             <TextField
               label="E-mail"
               name="email"
@@ -68,8 +171,35 @@ export const Form = () => {
               onChange={handleChange}
               fullWidth
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <TextField
+              label="Inscrição Estadual/RG"
+              name="ieRg"
+              value={formData.ieRg}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Box>
+
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
+            <InputMask
+              mask={cpfCnpjMask}
+              value={formData.cpfCnpj}
+              onChange={handleChange}
+              maskChar=""
+            >
+              {(inputProps) => (
+                <TextField
+                  {...inputProps}
+                  label="CNPJ/CPF *"
+                  name="cpfCnpj"
+                  fullWidth
+                />
+              )}
+            </InputMask>
+          </Box>
+          <Box sx={{ flex: '1 1 calc(33.33% - 1rem)', minWidth: '300px' }}>
             <TextField
               label="Telefone"
               name="phone"
@@ -77,46 +207,21 @@ export const Form = () => {
               onChange={handleChange}
               fullWidth
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Endereço"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              fullWidth
+          </Box>
+          <Box sx={{ flex: '1 1 100%' }}>
+            <Autocomplete
+              multiple
+              options={['Fornecedor', 'Cliente', 'Parceiro']}
+              value={formData.types}
+              onChange={handleTypesChange}
+              renderInput={(params) => (
+                <TextField {...params} label="Tipos" placeholder="Selecione" fullWidth />
+              )}
             />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              label="Cidade"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              label="Estado"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              label="CEP"
-              name="zip"
-              value={formData.zip}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
-        <Box sx={{ display: 'flex',gap:'1rem', mt: 3 }}>
+        <Box sx={{ display: 'flex', gap: '1rem', mt: 3, justifyContent: 'flex-start' }}>
           <Button variant="contained" color="warning" onClick={handleSubmit}>
             Salvar
           </Button>
@@ -127,4 +232,5 @@ export const Form = () => {
       </Box>
     </Container>
   );
-}
+};
+;

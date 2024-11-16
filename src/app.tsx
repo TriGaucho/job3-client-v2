@@ -3,7 +3,7 @@ import theme from "./shared/theme/theme"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import { menuLayout } from "./routes/menu"
-import { MenuLayout } from "./@types/menu"
+import { MenuLayout } from "./@types/TMenu"
 import NotFound from "./pages/NotFound"
 
 

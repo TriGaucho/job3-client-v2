@@ -1,7 +1,7 @@
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
 import Home from "../pages/Home";
-import { MenuLayout } from "../@types/menu";
+import { MenuLayout } from "../@types/TMenu";
 import Clientes from "../pages/Clientes";
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import Proposta from '../pages/Proposal/Index';

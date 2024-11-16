@@ -3,8 +3,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Header from '../../shared/components/Header';
 import Footer from '../../shared/components/Footer';
-import { useState } from 'react';
 import { Form } from './Form';
+import { List } from './List';
+import { ClienteProvider, useClienteContext } from '../../shared/context/ClienteContext';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -35,11 +36,11 @@ function handleNavigateProposal(index: number) {
     };
 }
 
-export default function Clientes() {
-    const [value, setValue] = useState(0);
+function ClientesTabs() {
+    const { abaAtual, setAbaAtual } = useClienteContext();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+        setAbaAtual(newValue);
     };
 
     const ContentTabs = [
@@ -51,7 +52,7 @@ export default function Clientes() {
             id: 1,
             label: 'Clientes'
         }
-    ]
+    ];
 
     return (
         <>
@@ -63,31 +64,37 @@ export default function Clientes() {
                     display: 'flex',
                     justifyContent: 'center',
                 }}>
-                    <Tabs value={value} onChange={handleChange}>
-                        {
-                            ContentTabs.map(tab => (
-                                <Tab sx={{
+                    <Tabs value={abaAtual} onChange={handleChange}>
+                        {ContentTabs.map(tab => (
+                            <Tab
+                                sx={{
                                     mr: 1,
                                     minWidth: 150,
-                                    textTransform: 'capitalize'
-                                }} key={tab.id} label={tab.label} {...handleNavigateProposal(tab.id)} />
-                            ))
-                        }
+                                    textTransform: 'capitalize',
+                                }}
+                                key={tab.id}
+                                label={tab.label}
+                                {...handleNavigateProposal(tab.id)}
+                            />
+                        ))}
                     </Tabs>
                 </Box>
-                <Box sx={{
-                }}>
-                    <CustomTabPanel value={value} index={0}>
-                        <Form />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
-                        <h1>
-                            list
-                        </h1>
-                    </CustomTabPanel>
-                </Box>
+                <CustomTabPanel value={abaAtual} index={0}>
+                    <Form />
+                </CustomTabPanel>
+                <CustomTabPanel value={abaAtual} index={1}>
+                    <List />
+                </CustomTabPanel>
             </Box>
             <Footer />
         </>
+    );
+}
+
+export default function Clientes() {
+    return (
+        <ClienteProvider>
+            <ClientesTabs />
+        </ClienteProvider>
     );
 }
