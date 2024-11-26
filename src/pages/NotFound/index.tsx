@@ -10,7 +10,7 @@ const NotFound: React.FC = () => {
             background: theme.palette.primary.main,
             display: 'grid',
             placeItems: "center",
-            minHeight: "100vh",
+            minHeight: "100dvh",
 
         }}>
             <Box sx={{

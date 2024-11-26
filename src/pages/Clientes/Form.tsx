@@ -31,7 +31,6 @@ export const Form = () => {
   const [cpfCnpjMask, setCpfCnpjMask] = useState('999.999.999-99');
 
   useEffect(() => {
-    // Preenche o formulário com os dados do cliente atual, se existir
     if (clienteAtual) {
       setFormData(clienteAtual);
       const onlyNumbers = clienteAtual.cpfCnpj.replace(/\D/g, '');
@@ -46,8 +45,8 @@ export const Form = () => {
       const onlyNumbers = value.replace(/\D/g, '');
       setCpfCnpjMask(
         onlyNumbers.length > 11
-          ? '99.999.999/9999-99' // CNPJ
-          : '999.999.999-99'     // CPF
+          ? '99.999.999/9999-99'
+          : '999.999.999-99'
       );
     }
 

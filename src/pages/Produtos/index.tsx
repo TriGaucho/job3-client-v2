@@ -1,15 +1,15 @@
+import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Header from '../../shared/components/Header';
 import Footer from '../../shared/components/Footer';
+import { ProdutoProvider, useProdutoContext } from '../../shared/context/ProdutoContext';
+import { ITabPanelProps } from '../../@types/ITabs';
 import { Form } from './Form';
 import { List } from './List';
-import { ClienteProvider, useClienteContext } from '../../shared/context/ClienteContext';
-import { ITabPanelProps } from '../../@types/ITabs';
 
-
-
+// Componente para exibir o conteúdo da aba selecionada
 function CustomTabPanel(props: ITabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -26,6 +26,7 @@ function CustomTabPanel(props: ITabPanelProps) {
     );
 }
 
+// Função para associar as abas ao painel correspondente
 function handleNavigateProposal(index: number) {
     return {
         id: `simple-tab-${index}`,
@@ -33,36 +34,40 @@ function handleNavigateProposal(index: number) {
     };
 }
 
-function ClientesTabs() {
-    const { abaAtual, setAbaAtual } = useClienteContext();
+function ProdutosTabs() {
+    const { abaAtual, setAbaAtual } = useProdutoContext();
 
+    // Função para alterar a aba ativa
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setAbaAtual(newValue);
     };
 
+    // Configuração das abas
     const ContentTabs = [
         {
             id: 0,
-            label: 'Cadastro'
+            label: 'Cadastro',
         },
         {
             id: 1,
-            label: 'Clientes'
-        }
+            label: 'Produtos',
+        },
     ];
 
     return (
         <>
             <Header />
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
-                <Box sx={{
-                    borderBottom: 1,
-                    borderColor: 'divider',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}>
+                <Box
+                    sx={{
+                        borderBottom: 1,
+                        borderColor: 'divider',
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Tabs value={abaAtual} onChange={handleChange}>
-                        {ContentTabs.map(tab => (
+                        {ContentTabs.map((tab) => (
                             <Tab
                                 sx={{
                                     mr: 1,
@@ -88,10 +93,10 @@ function ClientesTabs() {
     );
 }
 
-export default function Clientes() {
+export default function Produtos() {
     return (
-        <ClienteProvider>
-            <ClientesTabs />
-        </ClienteProvider>
+        <ProdutoProvider>
+            <ProdutosTabs />
+        </ProdutoProvider>
     );
 }
