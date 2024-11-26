@@ -25,7 +25,7 @@ export default () => {
         <Box
             sx={{
                 display: { xs: 'none', lg: 'grid' },
-                height: '100vh',
+                height: '100dvh',
                 // backgroundImage: 'url(https://job3.com.br/hml-job3online/@/src/assets/img/Order-Banner.jpg)', CASO QUEIRAM IMAGEM
                 backgroundSize: 'cover',
                 backgroundColor: (theme) => theme.palette.primary.main,
@@ -53,7 +53,7 @@ export default () => {
             <Box sx={{
                 display: 'grid',
                 placeItems: 'center',
-                height: '100vh',
+                height: '100dvh',
                 width: { sm: '100vw', lg: '33.34vw' },
                 padding: { sm: '1rem' }
             }}>
