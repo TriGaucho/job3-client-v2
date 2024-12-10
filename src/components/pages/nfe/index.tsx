@@ -3,14 +3,13 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
-import { ProdutoProvider, useProdutoContext } from '../../../context/ProdutoContext';
+import { NfeProvider, useNfeContext } from '../../../context/NfeContext';
 import { ITabPanelProps } from '../../../types/ITabs';
 import Footer from '../../Footer';
 import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';
 
-// Componente para exibir o conteúdo da aba selecionada
 function CustomTabPanel(props: ITabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -27,23 +26,20 @@ function CustomTabPanel(props: ITabPanelProps) {
     );
 }
 
-// Função para associar as abas ao painel correspondente
-function handleNavigateProposal(index: number) {
+function handleNavigateTab(index: number) {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
 
-function ProdutosTabs() {
-    const { abaAtual, setAbaAtual } = useProdutoContext();
+function NfeTabs() {
+    const { abaAtual, setAbaAtual } = useNfeContext();
 
-    // Função para alterar a aba ativa
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setAbaAtual(newValue);
     };
 
-    // Configuração das abas
     const ContentTabs = [
         {
             id: 0,
@@ -51,7 +47,7 @@ function ProdutosTabs() {
         },
         {
             id: 1,
-            label: 'Produtos',
+            label: 'Notas Fiscais',
         },
     ];
 
@@ -77,7 +73,7 @@ function ProdutosTabs() {
                                 }}
                                 key={tab.id}
                                 label={tab.label}
-                                {...handleNavigateProposal(tab.id)}
+                                {...handleNavigateTab(tab.id)}
                             />
                         ))}
                     </Tabs>
@@ -94,10 +90,10 @@ function ProdutosTabs() {
     );
 }
 
-export default function Produtos() {
+export default function Nfe() {
     return (
-        <ProdutoProvider>
-            <ProdutosTabs />
-        </ProdutoProvider>
+        <NfeProvider>
+            <NfeTabs />
+        </NfeProvider>
     );
 }

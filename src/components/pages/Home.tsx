@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import Logo from "../../assets/img/Job3_logo_black.svg"
 import Footer from "../Footer"
-import Header from "../Header"
+import Header from "../templates/Header"
 
 export default () => {
     return (
