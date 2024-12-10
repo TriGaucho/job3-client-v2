@@ -1,14 +1,14 @@
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Header from '../../shared/components/Header';
-import Footer from '../../shared/components/Footer';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import React from 'react';
+
+import { NfeProvider, useNfeContext } from '../../../context/NfeContext';
+import { ITabPanelProps } from '../../../types/ITabs';
+import Footer from '../../Footer';
+import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';
-import { ClienteProvider, useClienteContext } from '../../shared/context/ClienteContext';
-import { ITabPanelProps } from '../../@types/ITabs';
-
-
 
 function CustomTabPanel(props: ITabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -26,15 +26,15 @@ function CustomTabPanel(props: ITabPanelProps) {
     );
 }
 
-function handleNavigateProposal(index: number) {
+function handleNavigateTab(index: number) {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
 
-function ClientesTabs() {
-    const { abaAtual, setAbaAtual } = useClienteContext();
+function NfeTabs() {
+    const { abaAtual, setAbaAtual } = useNfeContext();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setAbaAtual(newValue);
@@ -43,26 +43,28 @@ function ClientesTabs() {
     const ContentTabs = [
         {
             id: 0,
-            label: 'Cadastro'
+            label: 'Cadastro',
         },
         {
             id: 1,
-            label: 'Clientes'
-        }
+            label: 'Notas Fiscais',
+        },
     ];
 
     return (
         <>
             <Header />
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
-                <Box sx={{
-                    borderBottom: 1,
-                    borderColor: 'divider',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}>
+                <Box
+                    sx={{
+                        borderBottom: 1,
+                        borderColor: 'divider',
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Tabs value={abaAtual} onChange={handleChange}>
-                        {ContentTabs.map(tab => (
+                        {ContentTabs.map((tab) => (
                             <Tab
                                 sx={{
                                     mr: 1,
@@ -71,7 +73,7 @@ function ClientesTabs() {
                                 }}
                                 key={tab.id}
                                 label={tab.label}
-                                {...handleNavigateProposal(tab.id)}
+                                {...handleNavigateTab(tab.id)}
                             />
                         ))}
                     </Tabs>
@@ -88,10 +90,10 @@ function ClientesTabs() {
     );
 }
 
-export default function Clientes() {
+export default function Nfe() {
     return (
-        <ClienteProvider>
-            <ClientesTabs />
-        </ClienteProvider>
+        <NfeProvider>
+            <NfeTabs />
+        </NfeProvider>
     );
 }

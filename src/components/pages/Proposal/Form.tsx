@@ -1,26 +1,27 @@
-import { useState, useEffect } from 'react';
+import { AddShoppingCartRounded, ClearRounded, DeleteRounded, SaveAltRounded } from '@mui/icons-material';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import {
     Box,
-    TextField,
     Button,
     InputLabel,
-    Select,
     MenuItem,
+    Paper,
+    Select,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Paper, Typography
+    TextField,
+    Typography
 } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import dayjs from 'dayjs';
-import { AddShoppingCartRounded, DeleteRounded, SaveAltRounded, ClearRounded } from '@mui/icons-material';
-import ToastMessage from '../../shared/components/ToastMessage';
+import { useEffect, useState } from 'react';
+import ToastMessage from '../../ToastMessage';
 
 interface ProdutoSelecionado {
     produto: string;
@@ -189,7 +190,7 @@ export const Form = () => {
                         label="Data Previsão da proposta"
                         value={dataPrevisao}
                         onChange={(newValue: any) => setDataPrevisao(newValue)}
-                        // renderInput={(params: any) => <TextField fullWidth {...params} />}
+                    // renderInput={(params: any) => <TextField fullWidth {...params} />}
                     />
                     <TextField
                         fullWidth

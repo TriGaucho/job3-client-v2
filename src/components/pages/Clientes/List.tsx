@@ -1,8 +1,12 @@
-import React from 'react';
-import { useClienteContext, Cliente } from '../../shared/context/ClienteContext';
 import {
-    Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography, Box
+    Box,
+    Button,
+    Paper,
+    Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Typography
 } from '@mui/material';
+import React from 'react';
+import { Cliente, useClienteContext } from '../../../context/ClienteContext';
 
 export const List: React.FC = () => {
     const { setClienteAtual, setAbaAtual } = useClienteContext();
