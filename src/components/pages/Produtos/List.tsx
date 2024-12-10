@@ -1,17 +1,17 @@
-import React from 'react';
 import {
+    Box,
+    Button,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
-    Button,
     Typography,
-    Box,
 } from '@mui/material';
-import { useProdutoContext } from '../../shared/context/ProdutoContext';
+import React from 'react';
+import { useProdutoContext } from '../../../context/ProdutoContext';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();

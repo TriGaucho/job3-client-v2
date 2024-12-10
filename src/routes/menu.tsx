@@ -1,13 +1,13 @@
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
-import Home from "../pages/Home";
-import { MenuLayout } from "../@types/TMenu";
-import Clientes from "../pages/Clientes";
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
-import Proposta from '../pages/Proposal/Index';
-import Produtos from '../pages/Produtos';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import { InventoryOutlined } from '@mui/icons-material';
+import NoteAltRoundedIcon from '@mui/icons-material/NoteAltRounded';
+import Clientes from '../components/pages/Clientes';
+import Home from '../components/pages/Home';
+import Produtos from '../components/pages/Produtos';
+import Proposta from '../components/pages/Proposal/Index';
+import { MenuLayout } from '../types/TMenu';
+
 
 export const menuLayout: MenuLayout = [
     {

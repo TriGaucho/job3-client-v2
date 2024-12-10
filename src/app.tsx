@@ -1,11 +1,10 @@
 import { CssBaseline, ThemeProvider } from "@mui/material"
-import theme from "./shared/theme/theme"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import Login from "./pages/Login"
+import Login from "./components/pages/Login"
+import NotFound from "./components/pages/NotFound"
 import { menuLayout } from "./routes/menu"
-import { MenuLayout } from "./@types/TMenu"
-import NotFound from "./pages/NotFound"
-
+import theme from "./theme/theme"
+import { MenuLayout } from "./types/TMenu"
 
 export default () => {
     const createRoutes = (menu: MenuLayout) => {

@@ -1,6 +1,6 @@
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import { Container, Typography, Button, Box, useTheme, Link } from '@mui/material';
-import Logo from '../../assets/img/Job3_logo_black.svg'
+import Logo from '../../../assets/img/Job3_logo_black.svg';
 
 const NotFound: React.FC = () => {
     const theme = useTheme()
@@ -11,7 +11,6 @@ const NotFound: React.FC = () => {
             display: 'grid',
             placeItems: "center",
             minHeight: "100dvh",
-
         }}>
             <Box sx={{
                 display: 'grid',

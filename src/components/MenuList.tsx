@@ -1,5 +1,5 @@
 import { Link, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { menuLayout } from "../../routes/menu";
+import { menuLayout } from "../routes/menu";
 
 export const MenuList = () => {
     return (

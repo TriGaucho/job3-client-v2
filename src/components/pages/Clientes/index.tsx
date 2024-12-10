@@ -1,12 +1,12 @@
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Header from '../../shared/components/Header';
-import Footer from '../../shared/components/Footer';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import { ClienteProvider, useClienteContext } from '../../../context/ClienteContext';
+import { ITabPanelProps } from '../../../types/ITabs';
+import Footer from '../../Footer';
+import Header from '../../Header';
 import { Form } from './Form';
 import { List } from './List';
-import { ClienteProvider, useClienteContext } from '../../shared/context/ClienteContext';
-import { ITabPanelProps } from '../../@types/ITabs';
 
 
 
