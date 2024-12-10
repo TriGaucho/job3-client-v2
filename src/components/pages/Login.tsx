@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { TextField, Button, Box, Typography, InputAdornment } from '@mui/material';
 import { AccountCircle, Business, Lock } from '@mui/icons-material';
-import { useTheme } from '@emotion/react';
-import Job3_logo_black from '../assets/img/Job3_logo_black.svg';
+import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Job3_logo_black from '../assets/img/Job3_logo_black.svg';
 
 export default () => {
     const [username, setUsername] = useState('');
@@ -96,7 +95,7 @@ export default () => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <Business /> {/* Ícone de empresa */}
+                                    <Business />
                                 </InputAdornment>
                             ),
                         }}
