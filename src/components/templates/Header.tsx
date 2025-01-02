@@ -1,12 +1,13 @@
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Menu from './Menu';
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { BotaoGenerico } from '../atoms/BotaoGenerico';
+import Menu from '../organisms/Menu';
 
 export default () => {
     const navigate = useNavigate();
@@ -103,21 +104,7 @@ export default () => {
                             }}>
                             {business} | {user}
                         </Typography>
-                        <IconButton
-                            onClick={handleLogout}
-                            size="large"
-                            edge="end"
-                            aria-label="login"
-                            sx={{
-                                color: '#fff',
-                                '&:hover': {
-                                    color: '#e9e9e9',
-                                    transition: 'color 0.3s ease-in-out',
-                                },
-                            }}
-                        >
-                            <LoginRoundedIcon />
-                        </IconButton>
+                        <BotaoGenerico icon={<LoginRoundedIcon />} handle={() => handleLogout()} />
                     </Box>
                 </Toolbar>
             </AppBar>

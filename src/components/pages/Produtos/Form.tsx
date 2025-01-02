@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
     Container,
-    TextField,
-    Typography,
-    MenuItem,
     Grid,
+    TextField,
+    Typography
 } from '@mui/material';
-import { useProdutoContext } from '../../shared/context/ProdutoContext';
+import React, { useEffect, useState } from 'react';
+import { useProdutoContext } from '../../../context/ProdutoContext';
 
 export const Form: React.FC = () => {
     const { produtoAtual, setProdutoAtual }: any = useProdutoContext();

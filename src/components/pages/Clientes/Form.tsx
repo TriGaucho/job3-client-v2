@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
 import {
+  Autocomplete,
   Box,
   Button,
   Container,
   TextField,
   Typography,
-  Autocomplete,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
-import { useClienteContext } from '../../shared/context/ClienteContext';
+import { useClienteContext } from '../../../context/ClienteContext';
 
 export const Form = () => {
-  const { clienteAtual } = useClienteContext();
+  const { clienteAtual }: any = useClienteContext();
 
   const [formData, setFormData] = useState({
     name: '',

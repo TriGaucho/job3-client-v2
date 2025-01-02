@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { Drawer, Typography, Box, IconButton } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
-import { MenuList } from "./MenuList";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Drawer, IconButton, Typography } from "@mui/material";
+import { useState } from "react";
+import { BotaoGenerico } from '../atoms/BotaoGenerico';
+import { MenuList } from "../molecules/MenuList";
 
 export default () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
@@ -45,20 +46,8 @@ export default () => {
                             }}>
                                 Módulos
                             </Typography>
-                            <IconButton sx={{
-                                width: "32px",
-                                height: "32px",
-                                borderRadius: "50%",
-                                marginLeft: "10px",
-                                transition: "translate 0.3s ease-in-out",
-                                '&:hover': {
-                                    translate: "2px",
-                                    transition: "translate 0.3s ease-in-out",
-                                    background: "transparent",
-                                }
-                            }}>
-                                <KeyboardArrowRightRoundedIcon />
-                            </IconButton>
+
+                            <BotaoGenerico icon={<KeyboardArrowRightRoundedIcon />} variant='black' />
                         </Box>
                         <Typography
                             sx={{
