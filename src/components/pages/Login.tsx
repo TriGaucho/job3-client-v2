@@ -1,8 +1,10 @@
 import { AccountCircle, Business, Lock } from '@mui/icons-material';
 import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Job3_logo_black from '../../assets/img/Job3_logo_black.svg';
+
 
 export default () => {
     const [username, setUsername] = useState('');
@@ -47,14 +49,18 @@ export default () => {
         </Box>
     )
 
+    const theme = useTheme()
+
     return (
+
         <>
             <Box sx={{
                 display: 'grid',
                 placeItems: 'center',
                 height: '100dvh',
                 width: { sm: '100vw', lg: '33.34vw' },
-                padding: { sm: '1rem' }
+                padding: { sm: '1rem' },
+                backgroundColor: theme.palette.background.default,
             }}>
                 <Box sx={{
                     display: { xs: 'block', lg: 'none' },

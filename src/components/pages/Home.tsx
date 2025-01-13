@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material"
+import { useTheme } from '@mui/material/styles'
 import Logo from "../../assets/img/Job3_logo_black.svg"
 import Footer from "../Footer"
 import Header from "../templates/Header"
 
 export default () => {
+    const theme = useTheme()
     return (
         <>
             <Header />
@@ -14,7 +16,7 @@ export default () => {
                 alignItems: 'center',
                 flexDirection: 'column',
                 height: 'calc(100dvh - 9rem)',
-                background: '#f5f5f5',
+                backgroundColor: theme.palette.background.default,
             }}>
                 <img
                     src={Logo}

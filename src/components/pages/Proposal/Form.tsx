@@ -22,7 +22,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import ToastMessage from '../../ToastMessage';
+import ToastMessage from '../../organisms/ToastMessage';
 
 interface ProdutoSelecionado {
     produto: string;

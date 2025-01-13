@@ -25,7 +25,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useNfeContext } from '../../../context/NfeContext';
-import ToastMessage from '../../ToastMessage';
+import ToastMessage from '../../organisms/ToastMessage';
 
 interface ProdutoSelecionado {
     produto: string;
