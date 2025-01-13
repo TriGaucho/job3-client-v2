@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import {
-    Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid, TextField
+    Container,
+    Grid,
+    Paper,
+    Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    TextField
 } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 interface Proposta {
     cliente: string,
@@ -49,7 +53,7 @@ export const List: React.FC = () => {
     });
 
     return (
-        <Grid container spacing={2}>
+        <Container maxWidth="xl" sx={{ display: 'grid', gap: 3 }}>
             <Grid item xs={12}>
                 <TextField
                     label="Buscar Cliente"
@@ -87,6 +91,6 @@ export const List: React.FC = () => {
                     </Table>
                 </TableContainer>
             </Grid>
-        </Grid>
+        </Container>
     );
 };

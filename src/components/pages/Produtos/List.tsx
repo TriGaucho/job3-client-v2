@@ -1,6 +1,6 @@
 import {
-    Box,
     Button,
+    Container,
     Paper,
     Table,
     TableBody,
@@ -8,7 +8,7 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Typography,
+    Typography
 } from '@mui/material';
 import React from 'react';
 import { useProdutoContext } from '../../../context/ProdutoContext';
@@ -42,14 +42,13 @@ export const List: React.FC = () => {
         },
     ];
 
-    // Função para editar o produto e mudar para a aba de formulário
     const handleEdit = (produto: any) => {
         setProdutoAtual(produto);
-        setAbaAtual(0); // Navega para a aba de cadastro
+        setAbaAtual(0);
     };
 
     return (
-        <Box sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4 }}>
             <Typography variant="h5">Lista de Produtos</Typography>
             <TableContainer component={Paper} sx={{ mt: 2 }}>
                 <Table>
@@ -83,6 +82,6 @@ export const List: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Box>
+        </Container>
     );
 };

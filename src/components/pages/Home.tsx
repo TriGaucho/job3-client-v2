@@ -13,7 +13,7 @@ export default () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
-                height: 'calc(100dvh - 64px)',
+                height: 'calc(100dvh - 9rem)',
                 background: '#f5f5f5',
             }}>
                 <img

@@ -3,6 +3,7 @@ import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import {
     Box,
     Button,
+    Container,
     InputLabel,
     MenuItem,
     Paper,
@@ -178,8 +179,8 @@ export const Form = () => {
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Box p={3}>
+        <Container maxWidth="xl" sx={{ margin: '0 auto', padding: 3 }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Box
                     display="flex"
                     flexDirection={{ xs: 'column', sm: 'row' }}
@@ -373,13 +374,13 @@ export const Form = () => {
                         Limpar
                     </Button>
                 </Box>
-            </Box>
-            <ToastMessage
-                status={toastStatus}
-                message={message}
-                open={openToast}
-                onClose={handleCloseToast}
-            />
-        </LocalizationProvider>
+                <ToastMessage
+                    status={toastStatus}
+                    message={message}
+                    open={openToast}
+                    onClose={handleCloseToast}
+                />
+            </LocalizationProvider>
+        </Container>
     );
 };

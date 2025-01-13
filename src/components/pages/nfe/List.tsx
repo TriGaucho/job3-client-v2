@@ -1,6 +1,6 @@
 import {
-    Box,
     Button,
+    Container,
     Paper,
     Table,
     TableBody,
@@ -8,7 +8,7 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Typography,
+    Typography
 } from '@mui/material';
 import React from 'react';
 import { useNfeContext } from '../../../context/NfeContext';
@@ -41,7 +41,7 @@ export const List: React.FC = () => {
     };
 
     return (
-        <Box sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4 }}>
             <Typography variant="h5">Lista de Notas Fiscais Eletrônicas</Typography>
             <TableContainer component={Paper} sx={{ mt: 2 }}>
                 <Table>
@@ -75,6 +75,6 @@ export const List: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Box>
+        </Container>
     );
 };

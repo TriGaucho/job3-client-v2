@@ -10,6 +10,7 @@ export default () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: '5rem',
         flexDirection: {
           xs: 'column',
           md: 'row',

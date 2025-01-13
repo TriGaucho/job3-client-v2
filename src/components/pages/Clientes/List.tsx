@@ -1,6 +1,6 @@
 import {
-    Box,
     Button,
+    Container,
     Paper,
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     Typography
@@ -36,7 +36,7 @@ export const List: React.FC = () => {
     };
 
     return (
-        <Box sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, display: 'grid' }}>
             <Typography variant="h5">Lista de Clientes</Typography>
             <TableContainer component={Paper} sx={{ mt: 2 }}>
                 <Table>
@@ -68,6 +68,6 @@ export const List: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Box>
+        </Container>
     );
 };
