@@ -92,7 +92,7 @@ export default () => {
                         Login
                     </Typography>
 
-                    <TextField
+                    {/* <TextField
                         label="Empresa"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -105,7 +105,7 @@ export default () => {
                                 </InputAdornment>
                             ),
                         }}
-                    />
+                    /> */}
 
                     <TextField
                         label="Login"

@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Login from "./components/pages/Login"
 import NotFound from "./components/pages/NotFound"
 import { menuLayout } from "./routes/menu"
-import theme from "./theme/theme"
+import { theme } from "./theme/theme"
 import { MenuLayout } from "./types/TMenu"
 
 export default () => {
@@ -16,7 +16,12 @@ export default () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <BrowserRouter>
+            <BrowserRouter
+                future={{
+                    v7_startTransition: true,
+                    v7_relativeSplatPath: true,
+                }}
+            >
                 <Routes>
                     <Route path="/" element={<Login />}></Route>
                     {createRoutes(menuLayout)}

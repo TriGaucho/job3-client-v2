@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
-import Footer from '../../Footer';
+import Footer from '../../templates/Footer';
 import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';

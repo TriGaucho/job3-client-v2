@@ -5,7 +5,7 @@ import React from 'react';
 
 import { ProdutoProvider, useProdutoContext } from '../../../context/ProdutoContext';
 import { ITabPanelProps } from '../../../types/ITabs';
-import Footer from '../../Footer';
+import Footer from '../../templates/Footer';
 import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';

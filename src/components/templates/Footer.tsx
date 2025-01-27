@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material"
 import { useState } from "react"
-import logo from "../assets/img/Job3_logo_black.svg"
+import logo from "../../assets/img/Job3_logo_black.svg"
 export default () => {
   const [year, setYear] = useState<number>(new Date().getFullYear())
 
