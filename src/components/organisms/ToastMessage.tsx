@@ -1,15 +1,8 @@
 import React from 'react';
 import { Snackbar, Alert, AlertColor } from '@mui/material';
+import { TToastMessageProps } from '../../types/TToastMessage';
 
-// Props para o componente de Toast
-interface ToastMessageProps {
-    status: 'success' | 'alert' | 'warn';
-    message: string;
-    open: boolean;
-    onClose: () => void;
-}
-
-const ToastMessage: React.FC<ToastMessageProps> = ({ status, message, open, onClose }) => {
+const ToastMessage: React.FC<TToastMessageProps> = ({ status, message, open, onClose }) => {
     const getAlertSeverity = (): AlertColor => {
         switch (status) {
             case 'success':

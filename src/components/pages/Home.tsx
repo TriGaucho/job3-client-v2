@@ -9,15 +9,17 @@ export default () => {
     return (
         <>
             <Header />
-            <Box sx={{
-                padding: '1rem',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                height: 'calc(100dvh - 9rem)',
-                backgroundColor: theme.palette.background.default,
-            }}>
+            <Box
+                component="section"
+                sx={{
+                    padding: '1rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    height: 'calc(100dvh - 9rem)',
+                    backgroundColor: theme.palette.background.default,
+                }}>
                 <img
                     src={Logo}
                     alt="Logo Job3" />

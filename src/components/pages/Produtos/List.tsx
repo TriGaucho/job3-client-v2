@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
     Button,
     Container,
@@ -10,37 +12,41 @@ import {
     TableRow,
     Typography
 } from '@mui/material';
-import React from 'react';
 import { useProdutoContext } from '../../../context/ProdutoContext';
+import { get } from '../../../api';
+import { useNavigate } from 'react-router-dom';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();
+    const [produtos, setProdutos] = useState<any[]>([]);
+    const navigate = useNavigate()
 
-    // Dados fictícios
-    const produtos = [
-        {
-            id: 1,
-            codigo: '001',
-            descricao: 'Produto A',
-            unidade: 'un',
-            valorUnidade: '10.00',
-            valorAtacado: '8.00',
-            valorRevenda: '9.50',
-            valorTabela4: '7.50',
-            subclasse: 'Subclasse A',
-        },
-        {
-            id: 2,
-            codigo: '002',
-            descricao: 'Produto B',
-            unidade: 'kg',
-            valorUnidade: '20.00',
-            valorAtacado: '18.00',
-            valorRevenda: '19.00',
-            valorTabela4: '17.00',
-            subclasse: 'Subclasse B',
-        },
-    ];
+    // Função para buscar os produtos
+    const fetchProdutos = async () => {
+        const token = localStorage.getItem("token")
+
+        if (!token) {
+            alert('Sessão expirada. Efetue o Login novamente')
+            navigate('/')
+        }
+
+        try {
+            const { data } = await get('produtos', {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    'content-type': 'application/json'
+                }
+            })
+            setProdutos(data);
+        } catch (error) {
+            console.error('Erro ao buscar os produtos:', error);
+        }
+    };
+
+    // Chamada inicial para buscar os produtos
+    useEffect(() => {
+        fetchProdutos();
+    }, []);
 
     const handleEdit = (produto: any) => {
         setProdutoAtual(produto);
@@ -67,7 +73,7 @@ export const List: React.FC = () => {
                                 <TableCell>{produto.codigo}</TableCell>
                                 <TableCell>{produto.descricao}</TableCell>
                                 <TableCell>{produto.unidade}</TableCell>
-                                <TableCell>{produto.valorUnidade}</TableCell>
+                                <TableCell>{produto.valor_unidade.toFixed(2)}</TableCell>
                                 <TableCell>
                                     <Button
                                         variant="contained"

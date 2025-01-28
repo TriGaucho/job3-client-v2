@@ -1,25 +1,44 @@
-import { AccountCircle, Business, Lock } from '@mui/icons-material';
-import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
+import { AccountCircle, Lock } from '@mui/icons-material';
+import { Box, Button, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Job3_logo_black from '../../assets/img/Job3_logo_black.svg';
-
+import { post } from '../../api';
+import ToastMessage from '../organisms/ToastMessage';
 
 export default () => {
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [toast, setToast] = useState({ open: false, status: 'success', message: '' });
+    const [loading, setLoading] = useState(false); // Estado de loading
     const navigate = useNavigate();
 
-    const handleSubmit = (event: any) => {
+    const handleCloseToast = () => {
+        setToast((prev) => ({ ...prev, open: false }));
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoading(true); // Inicia o loading
 
-        console.log('Usuário: ', username);
-        console.log('Email: ', email);
-        console.log('Senha: ', password);
+        try {
+            const response = await post('auth', {
+                email: email,
+                senha: password,
+            });
 
-        navigate('/home');
+            localStorage.setItem('token', response.data);
+            navigate('/home');
+        } catch (e) {
+            setToast({
+                open: true,
+                status: 'warn',
+                message: 'Não foi possível realizar o login. Verifique suas credenciais.',
+            });
+        } finally {
+            setLoading(false); // Finaliza o loading
+        }
     };
 
     const BackgroudSide = () => (
@@ -27,7 +46,6 @@ export default () => {
             sx={{
                 display: { xs: 'none', lg: 'grid' },
                 height: '100dvh',
-                // backgroundImage: 'url(https://job3.com.br/hml-job3online/@/src/assets/img/Order-Banner.jpg)', CASO QUEIRAM IMAGEM
                 backgroundSize: 'cover',
                 backgroundColor: (theme) => theme.palette.primary.main,
                 backgroundPosition: 'center',
@@ -38,39 +56,44 @@ export default () => {
                 placeItems: 'center',
             }}
         >
-            <Box sx={{
-                backgroundImage: `url(${Job3_logo_black})`,
-                width: '300px',
-                height: '300px',
-                position: 'absolute',
-                backgroundSize: '300px',
-                backgroundRepeat: 'no-repeat',
-            }} />
+            <Box
+                sx={{
+                    backgroundImage: `url(${Job3_logo_black})`,
+                    width: '300px',
+                    height: '300px',
+                    position: 'absolute',
+                    backgroundSize: '300px',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            />
         </Box>
-    )
+    );
 
-    const theme = useTheme()
+    const theme = useTheme();
 
     return (
-
         <>
-            <Box sx={{
-                display: 'grid',
-                placeItems: 'center',
-                height: '100dvh',
-                width: { sm: '100vw', lg: '33.34vw' },
-                padding: { sm: '1rem' },
-                backgroundColor: theme.palette.background.default,
-            }}>
-                <Box sx={{
-                    display: { xs: 'block', lg: 'none' },
-                    backgroundImage: `url(${Job3_logo_black})`,
-                    width: '200px',
-                    height: '200px',
-                    backgroundSize: '100%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                }} />
+            <Box
+                sx={{
+                    display: 'grid',
+                    placeItems: 'center',
+                    height: '100dvh',
+                    width: { sm: '100vw', lg: '33.34vw' },
+                    padding: { sm: '1rem' },
+                    backgroundColor: theme.palette.background.default,
+                }}
+            >
+                <Box
+                    sx={{
+                        display: { xs: 'block', lg: 'none' },
+                        backgroundImage: `url(${Job3_logo_black})`,
+                        width: '200px',
+                        height: '200px',
+                        backgroundSize: '100%',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                    }}
+                />
                 <Box
                     component="form"
                     onSubmit={handleSubmit}
@@ -92,21 +115,6 @@ export default () => {
                         Login
                     </Typography>
 
-                    {/* <TextField
-                        label="Empresa"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Business />
-                                </InputAdornment>
-                            ),
-                        }}
-                    /> */}
-
                     <TextField
                         label="Login"
                         type="email"
@@ -117,7 +125,7 @@ export default () => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <AccountCircle /> {/* Ícone de login (usuário) */}
+                                    <AccountCircle />
                                 </InputAdornment>
                             ),
                         }}
@@ -133,14 +141,24 @@ export default () => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <Lock /> {/* Ícone de senha (cadeado) */}
+                                    <Lock />
                                 </InputAdornment>
                             ),
                         }}
                     />
 
-                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, width: '50%', color: 'white' }}>
-                        Entrar
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        sx={{ mt: 2, width: '50%', height: 'fit-content', color: 'white', position: 'relative' }}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <CircularProgress size={24} sx={{ color: 'white', position: 'absolute' }} />
+                        ) : (
+                            'Entrar'
+                        )}
                     </Button>
                     <Box>
                         <Typography sx={{ textAlign: 'center', mt: 4, fontSize: 13 }}>
@@ -151,6 +169,12 @@ export default () => {
                 </Box>
             </Box>
             <BackgroudSide />
+            <ToastMessage
+                status={toast.status}
+                open={toast.open}
+                message={toast.message}
+                onClose={handleCloseToast}
+            />
         </>
     );
-}
+};
