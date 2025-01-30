@@ -21,9 +21,12 @@ export default () => {
         const token = localStorage.getItem('token')
         const data = decodeJWT(token)
         console.log(data)
-        // setEnvironment()
-        // setBusiness()
+
         setUser(data.email)
+
+        // TODO: Solicitar para o Diogo mandar estes dados
+        setEnvironment('DEVELOP')
+        setBusiness('JOB3')
     }
 
     useEffect(() => {

@@ -6,18 +6,18 @@ const baseUrl = Environment.BASE_URL
 
 if (!baseUrl) throw new Error('base url não definido')
 
-const api = axios.create({
+const Api = axios.create({
   baseURL: baseUrl
 })
 
-api.interceptors.request.use(
+Api.interceptors.request.use(
   (config) => requestInterceptor(config),
   (error) => errorInterceptor(error)
 );
 
-api.interceptors.response.use(
+Api.interceptors.response.use(
   (response) => responseInterceptor(response),
   (error) => errorInterceptor(error)
 );
 
-export default api;
+export default Api;

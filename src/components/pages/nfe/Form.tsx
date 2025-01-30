@@ -1,4 +1,4 @@
-// Formulário de NFe
+// Formulário de NFe refatorado
 import { AddShoppingCartRounded, ClearRounded, DeleteRounded, SaveAltRounded } from '@mui/icons-material';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import {
@@ -20,7 +20,6 @@ import {
     Typography
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -28,27 +27,38 @@ import { useNfeContext } from '../../../context/NfeContext';
 import ToastMessage from '../../organisms/ToastMessage';
 
 interface ProdutoSelecionado {
-    produto: string;
-    valor: number;
-    unidade: string;
+    produto_id: number;
     quantidade: number;
+    valor_unitario: number;
 }
 
-// Lista de empresas fictícias
+interface Cliente {
+    id: number;
+    nome: string;
+}
+
+// Dados mockados ajustados
 const empresas = [
     { id: 1, nome: 'Empresa A' },
     { id: 2, nome: 'Empresa B' },
     { id: 3, nome: 'Empresa C' },
 ];
 
-// Lista de clientes vinculados a empresas
-const clientesPorEmpresa = {
-    1: ['Cliente A1', 'Cliente A2', 'Cliente A3'],
-    2: ['Cliente B1', 'Cliente B2'],
-    3: ['Cliente C1', 'Cliente C2', 'Cliente C3', 'Cliente C4'],
+const clientesPorEmpresa: Record<number, Cliente[]> = {
+    1: [
+        { id: 1, nome: 'Cliente A1' },
+        { id: 2, nome: 'Cliente A2' },
+    ],
+    2: [
+        { id: 3, nome: 'Cliente B1' },
+        { id: 4, nome: 'Cliente B2' },
+    ],
+    3: [
+        { id: 5, nome: 'Cliente C1' },
+        { id: 6, nome: 'Cliente C2' },
+    ],
 };
 
-// Lista de produtos com preços
 const produtosComPrecos = [
     { id: 1, nome: 'Produto 1', preco: 100.00 },
     { id: 2, nome: 'Produto 2', preco: 200.00 },
@@ -56,30 +66,20 @@ const produtosComPrecos = [
 ];
 
 export const Form: React.FC = () => {
-    const [dataPrevisao, setDataPrevisao] = useState(dayjs());
-    const { nfeAtual, setNfeAtual }: any = useNfeContext();
+    const { nfeAtual, setNfeAtual } = useNfeContext();
+    const [formData, setFormData] = useState({
+        numero: '',
+        pessoa_id: '',
+    });
     const [empresaId, setEmpresaId] = useState('');
-    const [cliente, setCliente] = useState('');
     const [produtoId, setProdutoId] = useState('');
-    const [valor, setValor] = useState('');
-    const [unidade, setUnidade] = useState('');
-    const [quantidade, setQuantidade] = useState<number>(1);
+    const [quantidade, setQuantidade] = useState(1);
     const [produtosDaProposta, setProdutosDaProposta] = useState<ProdutoSelecionado[]>([]);
-    const [clientes, setClientes] = useState<string[]>([]);
+    const [clientes, setClientes] = useState<Cliente[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [openToast, setOpenToast] = useState(false);
     const [toastStatus, setToastStatus] = useState<'success' | 'alert' | 'warn'>('success');
-    const [message, setMessage] = useState('Operação realizada com sucesso!');
-
-    const handleOpenToast = (status: 'success' | 'alert' | 'warn', msg: string) => {
-        setToastStatus(status);
-        setMessage(msg);
-        setOpenToast(true);
-    };
-
-    const handleCloseToast = () => {
-        setOpenToast(false);
-    };
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         const produtosSalvos = localStorage.getItem('produtosDaProposta');
@@ -88,46 +88,40 @@ export const Form: React.FC = () => {
         }
     }, []);
 
-    const handleEmpresaChange = (event: any) => {
-        const selectedEmpresaId = event.target.value;
-        setEmpresaId(selectedEmpresaId);
+    const handleEmpresaChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        const selectedEmpresaId = Number(event.target.value);
+        setEmpresaId(selectedEmpresaId.toString());
         setClientes(clientesPorEmpresa[selectedEmpresaId] || []);
-        setCliente('');
+        setFormData(prev => ({ ...prev, pessoa_id: '' }));
     };
 
     const handleAddProduct = () => {
-        const produtoSelecionado = produtosComPrecos.find(produto => produto.id === parseInt(produtoId));
-        if (produtoSelecionado && unidade) {
-            const novoProduto: ProdutoSelecionado = {
-                produto: produtoSelecionado.nome,
-                valor: produtoSelecionado.preco,
-                unidade,
-                quantidade
-            };
+        const produtoSelecionado = produtosComPrecos.find(p => p.id === Number(produtoId));
+        if (!produtoSelecionado) return;
 
-            if (editIndex !== null) {
-                const produtosAtualizados = [...produtosDaProposta];
-                produtosAtualizados[editIndex] = novoProduto;
-                setProdutosDaProposta(produtosAtualizados);
-                setEditIndex(null);
-                localStorage.setItem('produtosDaProposta', JSON.stringify(produtosAtualizados));
-            } else {
-                setProdutosDaProposta([...produtosDaProposta, novoProduto]);
-                localStorage.setItem('produtosDaProposta', JSON.stringify([...produtosDaProposta, novoProduto]));
-            }
+        const novoProduto: ProdutoSelecionado = {
+            produto_id: produtoSelecionado.id,
+            quantidade,
+            valor_unitario: produtoSelecionado.preco
+        };
 
-            setProdutoId('');
-            setValor('');
-            setUnidade('');
-            setQuantidade(1);
-        }
+        setProdutosDaProposta(prev => {
+            const newProducts = editIndex !== null
+                ? prev.map((p, i) => i === editIndex ? novoProduto : p)
+                : [...prev, novoProduto];
+
+            localStorage.setItem('produtosDaProposta', JSON.stringify(newProducts));
+            return newProducts;
+        });
+
+        setProdutoId('');
+        setQuantidade(1);
+        setEditIndex(null);
     };
 
     const handleEditProduct = (index: number) => {
         const produto = produtosDaProposta[index];
-        setProdutoId(produtosComPrecos.find(p => p.nome === produto.produto)?.id.toString() || '');
-        setValor(produto.valor.toString());
-        setUnidade(produto.unidade);
+        setProdutoId(produto.produto_id.toString());
         setQuantidade(produto.quantidade);
         setEditIndex(index);
     };
@@ -139,328 +133,190 @@ export const Form: React.FC = () => {
     };
 
     const handleSave = () => {
-        handleOpenToast('success', 'Proposta salva com sucesso!');
+        if (!formData.numero || !formData.pessoa_id || produtosDaProposta.length === 0) {
+            handleOpenToast('warn', 'Preencha todos os campos obrigatórios!');
+            return;
+        }
 
-        const newProposal = {
-            cliente: cliente,
-            importado: quantidade,
-            total: valor
+        const nfeData = {
+            ...formData,
+            pessoa_id: Number(formData.pessoa_id),
+            produtos: produtosDaProposta
         };
 
-        const existingProposals = localStorage.getItem('propostaData');
-        let proposalsArray: any[] = [];
-
-        try {
-            if (existingProposals) {
-                proposalsArray = JSON.parse(existingProposals);
-
-                if (!Array.isArray(proposalsArray)) {
-                    proposalsArray = [];
-                }
-            }
-        } catch (error) {
-            console.error('Erro ao fazer parse do localStorage:', error);
-            proposalsArray = [];
-        }
-
-        const isDuplicate = proposalsArray.some((proposal) => proposal.cliente === newProposal.cliente);
-
-        if (!isDuplicate) {
-            proposalsArray.push(newProposal);
-
-            localStorage.setItem('propostaData', JSON.stringify(proposalsArray));
-            handleOpenToast('success', 'Proposta salva com sucesso!');
-        } else {
-            handleOpenToast('warn', 'Proposta já existe para esse cliente!');
-        }
-    };
-
-
-
-
-
-
-    const [formData, setFormData] = useState({
-        numero: '',
-        dataEmissao: '',
-        destinatario: '',
-        valorTotal: '',
-        chaveAcesso: '',
-    });
-
-    useEffect(() => {
-        if (nfeAtual) {
-            setFormData(nfeAtual);
-        }
-    }, [nfeAtual]);
-
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name as string]: value }));
-    };
-
-    const handleSubmit = () => {
-        console.log('NFe salva:', formData);
-        setNfeAtual(null);
+        // Simulação de salvamento
+        console.log('NFe salva:', nfeData);
+        handleOpenToast('success', 'NFe salva com sucesso!');
+        handleClear();
     };
 
     const handleClear = () => {
-        setFormData({
-            numero: '',
-            dataEmissao: '',
-            destinatario: '',
-            valorTotal: '',
-            chaveAcesso: '',
-        });
-        setNfeAtual(null);
+        setFormData({ numero: '', pessoa_id: '' });
+        setProdutosDaProposta([]);
+        setEmpresaId('');
+        setClientes([]);
+        localStorage.removeItem('produtosDaProposta');
+    };
+
+    const handleOpenToast = (status: 'success' | 'alert' | 'warn', msg: string) => {
+        setToastStatus(status);
+        setMessage(msg);
+        setOpenToast(true);
+    };
+
+    const getNomeProduto = (produtoId: number) => {
+        return produtosComPrecos.find(p => p.id === produtoId)?.nome || 'Desconhecido';
     };
 
     return (
-        <>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Container maxWidth="xl">
                 <Typography variant="h5" sx={{ mb: 2 }}>
                     Cadastro de Nota Fiscal Eletrônica
                 </Typography>
+
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Número"
+                            label="Número da NFe"
                             name="numero"
                             value={formData.numero}
-                            onChange={handleChange}
+                            onChange={(e) => setFormData({ ...formData, numero: e.target.value })}
                             fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <TextField
-                            label="Data de Emissão"
-                            name="dataEmissao"
-                            value={formData.dataEmissao}
-                            onChange={handleChange}
-                            type="date"
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <TextField
-                            label="Destinatário"
-                            name="destinatario"
-                            value={formData.destinatario}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <TextField
-                            label="Valor Total"
-                            name="valorTotal"
-                            value={formData.valorTotal}
-                            onChange={handleChange}
                             type="number"
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <TextField
-                            label="Chave de Acesso"
-                            name="chaveAcesso"
-                            value={formData.chaveAcesso}
-                            onChange={handleChange}
-                            fullWidth
                         />
                     </Grid>
 
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel>Empresa</InputLabel>
+                        <Select
+                            fullWidth
+                            value={empresaId}
+                            onChange={handleEmpresaChange}
+                            disabled={!!nfeAtual}
+                        >
+                            <MenuItem value="">Selecione a empresa</MenuItem>
+                            {empresas.map(empresa => (
+                                <MenuItem key={empresa.id} value={empresa.id}>
+                                    {empresa.nome}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel>Cliente</InputLabel>
+                        <Select
+                            fullWidth
+                            value={formData.pessoa_id}
+                            onChange={(e) => setFormData({ ...formData, pessoa_id: e.target.value as string })}
+                            disabled={!empresaId}
+                        >
+                            <MenuItem value="">Selecione o cliente</MenuItem>
+                            {clientes.map(cliente => (
+                                <MenuItem key={cliente.id} value={cliente.id}>
+                                    {cliente.nome}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
                 </Grid>
-            </Container>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Container maxWidth="xl">
-                    <Typography variant="h5" sx={{ mb: 2, mt: 2 }}>
-                        Proposta
-                    </Typography>
-                    <Box
-                        display="flex"
-                        flexDirection={{ xs: 'column', sm: 'row' }}
-                        gap={2}
-                        mb={2}
-                    >
-                        <DatePicker
-                            label="Data Previsão da proposta"
-                            value={dataPrevisao}
-                            onChange={(newValue: any) => setDataPrevisao(newValue)}
-                        // renderInput={(params: any) => <TextField fullWidth {...params} />}
-                        />
-                        <TextField
-                            fullWidth
-                            label="Tabela Preço"
-                            variant="outlined"
-                        />
-                    </Box>
 
-                    {/* Empresa e Cliente */}
-                    <Box
-                        display="flex"
-                        flexDirection={{ xs: 'column', sm: 'row' }}
-                        gap={2}
-                        mb={2}
-                    >
-                        <Box flex={1}>
-                            <InputLabel>Cliente</InputLabel>
-                            <Select
-                                fullWidth
-                                variant="outlined"
-                                value={cliente}
-                                onChange={(e) => setCliente(e.target.value)}
-                                disabled={!empresaId} >
-                                <MenuItem value="">Selecione</MenuItem>
-                                {clientes.map((clienteNome, index) => (
-                                    <MenuItem key={index} value={clienteNome}>
-                                        {clienteNome}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                    </Box>
-                    <Box>
-                        <Typography variant="h5">
-                            Produto
-                        </Typography>
-                    </Box>
-                    <Box
-                        display="flex"
-                        flexDirection={{ xs: 'column', sm: 'row' }}
-                        gap={2}
-                        mb={2}
-                    >
-                        <Box flex={1}>
-                            <Select
-                                fullWidth
-                                variant="outlined"
-                                value={produtoId}
-                                onChange={(e) => {
-                                    const selectedProduto = produtosComPrecos.find(produto => produto.id === parseInt(e.target.value));
-                                    setProdutoId(e.target.value);
-                                    setValor(selectedProduto ? selectedProduto.preco.toString() : ''); // Define o valor do produto
-                                }}
-                            >
-                                <MenuItem value="">Selecione</MenuItem>
-                                {produtosComPrecos.map(produto => (
-                                    <MenuItem key={produto.id} value={produto.id}>
-                                        {produto.nome}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </Box>
-                        <TextField
+                <Box mt={4}>
+                    <Typography variant="h6">Produtos</Typography>
+                    <Box display="flex" gap={2} mt={2}>
+                        <Select
                             fullWidth
-                            label="Valor"
-                            variant="outlined"
-                            type="number"
-                            value={valor}
-                            InputProps={{ readOnly: true }}
-                        />
+                            value={produtoId}
+                            onChange={(e) => setProdutoId(e.target.value as string)}
+                        >
+                            <MenuItem value="">Selecione um produto</MenuItem>
+                            {produtosComPrecos.map(produto => (
+                                <MenuItem key={produto.id} value={produto.id}>
+                                    {produto.nome} - R$ {produto.preco.toFixed(2)}
+                                </MenuItem>
+                            ))}
+                        </Select>
+
                         <TextField
-                            fullWidth
-                            label="Unidade"
-                            variant="outlined"
-                            value={unidade}
-                            onChange={(e) => setUnidade(e.target.value)}
-                        />
-                        <TextField
-                            fullWidth
                             label="Quantidade"
-                            variant="outlined"
                             type="number"
                             value={quantidade}
-                            onChange={(e) => setQuantidade(parseInt(e.target.value))}
+                            onChange={(e) => setQuantidade(Math.max(1, Number(e.target.value)))}
+                            sx={{ width: 150 }}
                         />
-                        <Button variant="contained" color="primary" onClick={handleAddProduct} sx={{
-                            color: "white"
-                        }}>
-                            {editIndex !== null ? <SaveAltRounded /> : <AddShoppingCartRounded />}
+
+                        <Button
+                            variant="contained"
+                            onClick={handleAddProduct}
+                            disabled={!produtoId}
+                        >
+                            {editIndex !== null ? 'Atualizar' : 'Adicionar'}
                         </Button>
                     </Box>
-                    {/* Tabela de Produtos Adicionados */}
-                    <Box>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Ações</TableCell>
-                                        <TableCell>Produto</TableCell>
-                                        <TableCell>Valor</TableCell>
-                                        <TableCell>Unidade</TableCell>
-                                        <TableCell>Quantidade</TableCell>
-                                        <TableCell>Total</TableCell>
+
+                    <TableContainer component={Paper} sx={{ mt: 2 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Ações</TableCell>
+                                    <TableCell>Produto</TableCell>
+                                    <TableCell>Valor Unitário</TableCell>
+                                    <TableCell>Quantidade</TableCell>
+                                    <TableCell>Total</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {produtosDaProposta.map((produto, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>
+                                            <Button onClick={() => handleEditProduct(index)}>
+                                                <EditNoteRoundedIcon />
+                                            </Button>
+                                            <Button onClick={() => handleDeleteProduct(index)} color="error">
+                                                <DeleteRounded />
+                                            </Button>
+                                        </TableCell>
+                                        <TableCell>{getNomeProduto(produto.produto_id)}</TableCell>
+                                        <TableCell>R$ {produto.valor_unitario.toFixed(2)}</TableCell>
+                                        <TableCell>{produto.quantidade}</TableCell>
+                                        <TableCell>
+                                            R$ {(produto.quantidade * produto.valor_unitario).toFixed(2)}
+                                        </TableCell>
                                     </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {produtosDaProposta.length === 0 ? (
-                                        <TableRow>
-                                            <TableCell colSpan={6} align="center">
-                                                Nenhum produto adicionado.
-                                            </TableCell>
-                                        </TableRow>
-                                    ) : (
-                                        produtosDaProposta.map((produto, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell>
-                                                    <Button
-                                                        color="primary"
-                                                        onClick={() => handleEditProduct(index)}
-                                                    >
-                                                        <EditNoteRoundedIcon />
-                                                    </Button>
-                                                    <Button
-                                                        color="secondary"
-                                                        onClick={() => handleDeleteProduct(index)}
-                                                    >
-                                                        <DeleteRounded />
-                                                    </Button>
-                                                </TableCell>
-                                                <TableCell>{produto.produto}</TableCell>
-                                                <TableCell>{produto.valor}</TableCell>
-                                                <TableCell>{produto.unidade}</TableCell>
-                                                <TableCell>{produto.quantidade}</TableCell>
-                                                <TableCell>
-                                                    {(produto.valor * produto.quantidade).toFixed(2)}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Box>
-                    <Box mt={2} display="flex" gap={2}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<SaveAltRounded />}
-                            onClick={handleSave}
-                            sx={{ color: '#fff' }}
-                        >
-                            Salvar
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<ClearRounded />}
-                            onClick={handleClear}
-                        >
-                            Limpar
-                        </Button>
-                    </Box>
-                </Container>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+
+                <Box mt={4} display="flex" gap={2}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<SaveAltRounded />}
+                        onClick={handleSave}
+                    >
+                        Salvar NFe
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        startIcon={<ClearRounded />}
+                        onClick={handleClear}
+                    >
+                        Limpar Tudo
+                    </Button>
+                </Box>
+
                 <ToastMessage
                     status={toastStatus}
                     message={message}
                     open={openToast}
-                    onClose={handleCloseToast}
+                    onClose={() => setOpenToast(false)}
                 />
-            </LocalizationProvider>
-        </>
+            </Container>
+        </LocalizationProvider>
     );
 };
