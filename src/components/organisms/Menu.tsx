@@ -1,12 +1,21 @@
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Drawer, IconButton, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import { MenuList } from "../molecules/MenuList";
+import { decodeJWT } from '../../Utils';
 
 export default () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [permission, setPermission] = useState([])
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const data = decodeJWT(token)
+
+        setPermission(data.modulos)
+    }, [])
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
@@ -57,7 +66,7 @@ export default () => {
                             Job3
                         </Typography>
                     </Box>
-                    <MenuList />
+                    <MenuList permissions={permission} />
                 </Box>
             </Drawer>
         </Box>

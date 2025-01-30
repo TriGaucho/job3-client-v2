@@ -14,34 +14,38 @@ import { MenuLayout } from '../types/TMenu';
 export const menuLayout: MenuLayout = [
     {
         name: "Home",
-        route: "/home",
+        route: "/",
         page: <Home />,
-        icon: <HomeRoundedIcon />
-
+        icon: <HomeRoundedIcon />,
+        permission: undefined,
     },
     {
         name: "Proposta",
         route: "/proposta",
         page: <Proposta />,
-        icon: <NoteAltRoundedIcon />
+        icon: <NoteAltRoundedIcon />,
+        permission: 'PROPOSTAS',
     },
     {
         name: "Clientes",
         route: "/clientes",
         page: <Clientes />,
-        icon: <GroupRoundedIcon />
+        icon: <GroupRoundedIcon />,
+        permission: 'CLIENTES',
     },
     {
         name: "Produtos",
         route: "/produtos",
         page: <Produtos />,
-        icon: <InventoryIcon />
+        icon: <InventoryIcon />,
+        permission: 'PRODUTOS',
     },
     {
         name: "Notas Fiscais",
         route: "/notas-fiscais",
         page: <Nfe />,
-        icon: <LocalAtmRounded />
+        icon: <LocalAtmRounded />,
+        permission: 'NOTAS_FISCAIS',
     }
 
 ]

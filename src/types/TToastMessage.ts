@@ -1,4 +1,4 @@
-export type TToastMessageProps {
+export type TToastMessageProps = {
     status: 'success' | 'alert' | 'warn';
     message: string;
     open: boolean;

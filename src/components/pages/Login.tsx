@@ -4,14 +4,14 @@ import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Job3_logo_black from '../../assets/img/Job3_logo_black.svg';
-import { post } from '../../api';
 import ToastMessage from '../organisms/ToastMessage';
+import api from '../../services/api';
 
 export default () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [toast, setToast] = useState({ open: false, status: 'success', message: '' });
-    const [loading, setLoading] = useState(false); // Estado de loading
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleCloseToast = () => {
@@ -20,16 +20,16 @@ export default () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setLoading(true); // Inicia o loading
+        setLoading(true);
 
         try {
-            const response = await post('auth', {
+            const response = await api.post('auth', {
                 email: email,
                 senha: password,
             });
 
-            localStorage.setItem('token', response.data);
-            navigate('/home');
+            localStorage.setItem('token', response.data.data);
+            navigate('/');
         } catch (e) {
             setToast({
                 open: true,
@@ -37,7 +37,7 @@ export default () => {
                 message: 'Não foi possível realizar o login. Verifique suas credenciais.',
             });
         } finally {
-            setLoading(false); // Finaliza o loading
+            setLoading(false);
         }
     };
 
@@ -151,7 +151,7 @@ export default () => {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        sx={{ mt: 2, width: '50%', height: 'fit-content', color: 'white', position: 'relative' }}
+                        sx={{ mt: 2, width: '50%', padding: '1rem', height: '24px', color: 'white', position: 'relative' }}
                         disabled={loading}
                     >
                         {loading ? (
@@ -162,7 +162,7 @@ export default () => {
                     </Button>
                     <Box>
                         <Typography sx={{ textAlign: 'center', mt: 4, fontSize: 13 }}>
-                            V-APP: 2024.07.20<br />
+                            V-APP: 2025.01.29<br />
                             ambiente: hml-service
                         </Typography>
                     </Box>

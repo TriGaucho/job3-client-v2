@@ -57,7 +57,7 @@ function ProdutosTabs() {
 
     return (
         <>
-            <Header />
+
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box
                     sx={{
@@ -89,7 +89,7 @@ function ProdutosTabs() {
                     <List />
                 </CustomTabPanel>
             </Box>
-            <Footer />
+
         </>
     );
 }

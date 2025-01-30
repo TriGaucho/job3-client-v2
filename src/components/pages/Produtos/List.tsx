@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
     Button,
     Container,
@@ -12,9 +10,9 @@ import {
     TableRow,
     Typography
 } from '@mui/material';
-import { useProdutoContext } from '../../../context/ProdutoContext';
-import { get } from '../../../api';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useProdutoContext } from '../../../context/ProdutoContext';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();
@@ -31,13 +29,13 @@ export const List: React.FC = () => {
         }
 
         try {
-            const { data } = await get('produtos', {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'content-type': 'application/json'
-                }
-            })
-            setProdutos(data);
+            // const { data } = await get('produtos', {
+            //     headers: {
+            //         authorization: `Bearer ${token}`,
+            //         'content-type': 'application/json'
+            //     }
+            // })
+            // setProdutos(data);
         } catch (error) {
             console.error('Erro ao buscar os produtos:', error);
         }

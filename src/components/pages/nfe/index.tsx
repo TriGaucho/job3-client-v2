@@ -53,7 +53,7 @@ function NfeTabs() {
 
     return (
         <>
-            <Header />
+
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box
                     sx={{
@@ -85,7 +85,7 @@ function NfeTabs() {
                     <List />
                 </CustomTabPanel>
             </Box>
-            <Footer />
+
         </>
     );
 }

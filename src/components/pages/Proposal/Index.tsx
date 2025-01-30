@@ -56,7 +56,7 @@ export default function Proposta() {
 
     return (
         <>
-            <Header />
+
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box sx={{
                     borderBottom: 1,
@@ -76,8 +76,7 @@ export default function Proposta() {
                         }
                     </Tabs>
                 </Box>
-                <Box sx={{
-                }}>
+                <Box>
                     <CustomTabPanel value={value} index={0}>
                         <Form />
                     </CustomTabPanel>
@@ -86,7 +85,7 @@ export default function Proposta() {
                     </CustomTabPanel>
                 </Box>
             </Box>
-            <Footer />
+
         </>
     );
 }
