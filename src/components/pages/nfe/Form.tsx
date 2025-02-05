@@ -1,27 +1,28 @@
 // Formulário de NFe refatorado
 import {
-    ClearRounded,
-    DeleteRounded,
-    SaveAltRounded
+  ClearRounded,
+  DeleteRounded,
+  SaveAltRounded,
 } from "@mui/icons-material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Paper,
-    Select,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -71,6 +72,7 @@ const produtosComPrecos = [
 
 export const Form: React.FC = () => {
   const { nfeAtual, setNfeAtual } = useNfeContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     numero: "",
     pessoa_id: "",
@@ -154,24 +156,28 @@ export const Form: React.FC = () => {
       handleOpenToast("warn", "Preencha todos os campos obrigatórios!");
       return;
     }
-  
+
+    setIsLoading(true); // Ativa o loading
+
     const nfeData = {
-      numero: Number(formData.numero), 
+      numero: Number(formData.numero),
       pessoa_id: Number(formData.pessoa_id),
-      produtos: produtosDaProposta
+      produtos: produtosDaProposta,
     };
-  
+
     try {
       const createNfe = await NotasFicaisService.create(nfeData);
-      
+
       if (createNfe) {
         handleOpenToast("success", "NFe salva com sucesso!");
         handleClear();
       }
     } catch (error) {
       handleOpenToast("warn", "Erro ao salvar NFe!");
+    } finally {
+      setIsLoading(false); // Desativa o loading em qualquer caso
     }
-  }; 
+  };
 
   const handleClear = () => {
     setFormData({ numero: "", pessoa_id: "" });
@@ -203,7 +209,7 @@ export const Form: React.FC = () => {
           Cadastro de Nota Fiscal Eletrônica
         </Typography>
 
-        <Box display={"grid"} gridTemplateColumns={'1fr 1fr'} gap={2}>
+        <Box display={"grid"} gridTemplateColumns={"1fr 1fr"} gap={2}>
           <Box>
             <InputLabel>Número da nota fiscal</InputLabel>
             <TextField
@@ -216,7 +222,7 @@ export const Form: React.FC = () => {
               type="number"
             />
           </Box>
-          
+
           <Box>
             <InputLabel>Empresa</InputLabel>
             <Select
@@ -332,10 +338,26 @@ export const Form: React.FC = () => {
           <Button
             variant="contained"
             color="primary"
-            startIcon={<SaveAltRounded />}
+            startIcon={
+              isLoading ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : (
+                <SaveAltRounded />
+              )
+            }
             onClick={handleSave}
+            disabled={
+              isLoading ||
+              !formData.numero ||
+              !formData.pessoa_id ||
+              produtosDaProposta.length === 0
+            }
+            sx={{
+              opacity: isLoading ? 0.7 : 1,
+              cursor: isLoading ? "progress" : "pointer",
+            }}
           >
-            Salvar NFe
+            {isLoading ? "Salvando..." : "Salvar NFe"}
           </Button>
 
           <Button
