@@ -1,27 +1,25 @@
-import Api from ".."
+import Api from "..";
 
-const create = async () => {
-  const token = localStorage.getItem('token')
+const create = async (data: any) => {
+  const token = localStorage.getItem('token');
   const options = {
     method: 'POST',
-    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
-    data: {
-      numero: 1,
-      pessoa_id: 1,
-      produtos: [
-        { produto_id: 1, quantidade: 2, valor_unitario: 10 },
-        { produto_id: 2, quantidade: 3, valor_unitario: 1.7 }
-      ]
-    }
+    url: '/notas-fiscais', // Adicione o endpoint correto
+    headers: { 
+      authorization: `Bearer ${token}`, 
+      'Content-Type': 'application/json' 
+    },
+    data: data // Usa os dados recebidos do formulário
   };
 
   try {
-    const { data } = await Api.request(options);
-    return data
+    const response = await Api.request(options);
+    return response.data;
   } catch (error) {
     console.error(error);
+    throw error; // Melhora o tratamento de erros
   }
-}
+};
 
 const getAll = async () => {
 

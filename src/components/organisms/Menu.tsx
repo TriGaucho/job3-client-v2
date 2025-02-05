@@ -5,13 +5,18 @@ import { useEffect, useState } from "react";
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import { MenuList } from "../molecules/MenuList";
 import { decodeJWT } from '../../Utils';
+import { useNavigate } from 'react-router-dom';
 
 export default () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [permission, setPermission] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token')
+
+        if(!token) return navigate('/login') 
+
         const data = decodeJWT(token)
 
         setPermission(data.modulos)

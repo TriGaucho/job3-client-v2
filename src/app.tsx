@@ -10,36 +10,37 @@ import { MenuLayout } from "./types/TMenu"
 
 export default () => {
     const createRoutes = (menu: MenuLayout) => {
-        return menu.map(item => {
-            return (
-                <Route
-                    path={item.route}
-                    element={
-                        < Suspense fallback={< Loading />}>
-                            {item.page}
-                        </Suspense >
-                    }
-                    key={`${item.route}`}
-                />
-            )
-        })
+        return menu.map(item => (
+            <Route
+                path={item.route}
+                element={
+                    <Suspense fallback={<Loading />}>
+                        {item.page}
+                    </Suspense>
+                }
+                key={item.route}
+            />
+        ))
     }
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <BrowserRouter
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
-                <BaseLayout>
-                    <Routes>
-                        <Route path="/login" element={<Login />}></Route>
-                        {createRoutes(menuLayout)}
-                    </Routes>
-                </BaseLayout>
+            <BrowserRouter>
+                <Routes>
+                    {/* Rota de login separada do BaseLayout */}
+                    <Route path="/login" element={<Login />} />
+
+                    {/* Rotas que utilizam o BaseLayout */}
+                    <Route
+                        path="/*"
+                        element={
+                            <BaseLayout>
+                                <Routes>{createRoutes(menuLayout)}</Routes>
+                            </BaseLayout>
+                        }
+                    />
+                </Routes>
             </BrowserRouter>
         </ThemeProvider>
     )

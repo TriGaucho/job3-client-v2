@@ -45,10 +45,10 @@ function NfeTabs() {
             id: 0,
             label: 'Cadastro',
         },
-        {
-            id: 1,
-            label: 'Notas Fiscais',
-        },
+        // {
+        //     id: 1,
+        //     label: 'Notas Fiscais',
+        // },
     ];
 
     return (
