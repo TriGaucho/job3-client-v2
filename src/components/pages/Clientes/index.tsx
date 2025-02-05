@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { ClienteProvider, useClienteContext } from '../../../context/ClienteContext';
-import { ITabPanelProps } from '../../../types/ITabs';
+import { ITabPanelProps } from '../../../types/ITabs.type';
 import Footer from '../../templates/Footer';
 import Header from '../../templates/Header';
 import { Form } from './Form';

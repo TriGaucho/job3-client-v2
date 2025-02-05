@@ -6,7 +6,7 @@ import Loading from "./components/pages/Loading"
 import Login from "./components/pages/Login"
 import { menuLayout } from "./routes/menu"
 import { theme } from "./theme/theme"
-import { MenuLayout } from "./types/TMenu"
+import { MenuLayout } from "./types/TMenu.type"
 
 export default () => {
     const createRoutes = (menu: MenuLayout) => {

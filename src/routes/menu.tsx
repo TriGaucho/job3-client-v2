@@ -8,7 +8,7 @@ import Home from '../components/pages/Home';
 import Nfe from '../components/pages/nfe';
 import Produtos from '../components/pages/Produtos';
 import Proposta from '../components/pages/Proposal/Index';
-import { MenuLayout } from '../types/TMenu';
+import { MenuLayout } from '../types/TMenu.type';
 
 
 export const menuLayout: MenuLayout = [

@@ -1,5 +1,5 @@
 import { Link, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { TMenuItem } from "../../types/TMenu"
+import { TMenuItem } from "../../types/TMenu.type"
 
 interface MenuItemProps extends TMenuItem {
     allowedPermissions: string[];

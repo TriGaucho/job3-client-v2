@@ -8,4 +8,4 @@ export type TMenuItem = {
     permission?: string
 }
 
-export type MenuLayout = MenuItem[]
+export type MenuLayout = TMenuItem[]

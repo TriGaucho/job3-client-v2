@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
 import { NfeProvider, useNfeContext } from '../../../context/NfeContext';
-import { ITabPanelProps } from '../../../types/ITabs';
+import { ITabPanelProps } from '../../../types/ITabs.type';
 import Footer from '../../templates/Footer';
 import Header from '../../templates/Header';
 import { Form } from './Form';
