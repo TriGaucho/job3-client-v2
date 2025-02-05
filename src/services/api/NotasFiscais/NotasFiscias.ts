@@ -4,12 +4,12 @@ const create = async (data: any) => {
   const token = localStorage.getItem('token');
   const options = {
     method: 'POST',
-    url: '/notas-fiscais', // Adicione o endpoint correto
-    headers: { 
-      authorization: `Bearer ${token}`, 
-      'Content-Type': 'application/json' 
+    url: '/notas-fiscais',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
     },
-    data: data // Usa os dados recebidos do formulário
+    data: data
   };
 
   try {
@@ -17,7 +17,7 @@ const create = async (data: any) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw error; // Melhora o tratamento de erros
+    throw error;
   }
 };
 

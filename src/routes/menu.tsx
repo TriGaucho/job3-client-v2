@@ -31,14 +31,14 @@ export const menuLayout: MenuLayout = [
         route: "/clientes",
         page: <Clientes />,
         icon: <GroupRoundedIcon />,
-        permission: 'CLIENTES',
+        permission: undefined,
     },
     {
         name: "Produtos",
         route: "/produtos",
         page: <Produtos />,
         icon: <InventoryIcon />,
-        permission: 'PRODUTOS',
+        permission: undefined,
     },
     {
         name: "Notas Fiscais",

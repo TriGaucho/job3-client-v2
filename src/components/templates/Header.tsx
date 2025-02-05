@@ -20,7 +20,7 @@ export default () => {
     const handleUserData = () => {
         const token = localStorage.getItem('token')
 
-        if(!token) return navigate('/login')
+        if (!token) return navigate('/login')
 
         const data = decodeJWT(token)
         console.log(data)
