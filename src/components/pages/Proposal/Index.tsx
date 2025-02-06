@@ -2,8 +2,6 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
-import Footer from '../../Footer';
-import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';
 
@@ -40,6 +38,7 @@ export default function Proposta() {
     const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        console.log(event)
         setValue(newValue);
     };
 
@@ -56,7 +55,7 @@ export default function Proposta() {
 
     return (
         <>
-            <Header />
+
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box sx={{
                     borderBottom: 1,
@@ -76,8 +75,7 @@ export default function Proposta() {
                         }
                     </Tabs>
                 </Box>
-                <Box sx={{
-                }}>
+                <Box>
                     <CustomTabPanel value={value} index={0}>
                         <Form />
                     </CustomTabPanel>
@@ -86,7 +84,7 @@ export default function Proposta() {
                     </CustomTabPanel>
                 </Box>
             </Box>
-            <Footer />
+
         </>
     );
 }

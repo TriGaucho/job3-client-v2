@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { decodeJWT } from '../../Utils';
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import Menu from '../organisms/Menu';
 
@@ -16,39 +17,31 @@ export default () => {
     const [business, setBusiness] = useState<string>('');
     const [user, setUser] = useState<string>('');
 
-    const handleEnvironment = () => {
-        const env = import.meta.env.VITE_ENVIRONMENT || ' - ';
-        if (env === 'production') {
-            setEnvironment('Produção');
-        } else if (env === 'homolog') {
-            setEnvironment('Homologação');
-        } else {
-            setEnvironment('Desenvolvimento');
-        }
-    }
+    const handleUserData = () => {
+        const token = localStorage.getItem('token')
 
-    const handleBusiness = () => {
-        setBusiness('Job3')
-    }
+        if (!token) return navigate('/login')
 
-    const handleUser = () => {
-        const username = localStorage.getItem('username');
-        setUser('Nome de usuário');
+        const data = decodeJWT(token)
+
+        setUser(data.email)
+
+        // TODO: Solicitar para o Diogo mandar estes dados
+        setEnvironment('DEVELOP')
+        setBusiness('JOB3')
     }
 
     useEffect(() => {
-        handleEnvironment();
-        handleBusiness();
-        handleUser();
+        handleUserData()
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
+        localStorage.removeItem('token');
         navigate('/');
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box component='header' sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar sx={{
                     display: 'flex',

@@ -8,40 +8,53 @@ import Home from '../components/pages/Home';
 import Nfe from '../components/pages/nfe';
 import Produtos from '../components/pages/Produtos';
 import Proposta from '../components/pages/Proposal/Index';
-import { MenuLayout } from '../types/TMenu';
+import { MenuLayout } from '../types/TMenu.type';
+import Pessoas from '../components/pages/Pessoas';
+import GroupIcon from '@mui/icons-material/Group';
 
 
 export const menuLayout: MenuLayout = [
     {
         name: "Home",
-        route: "/home",
+        route: "/",
         page: <Home />,
-        icon: <HomeRoundedIcon />
-
+        icon: <HomeRoundedIcon />,
+        permission: undefined,
     },
     {
         name: "Proposta",
         route: "/proposta",
         page: <Proposta />,
-        icon: <NoteAltRoundedIcon />
+        icon: <NoteAltRoundedIcon />,
+        permission: 'PROPOSTAS',
     },
     {
         name: "Clientes",
         route: "/clientes",
         page: <Clientes />,
-        icon: <GroupRoundedIcon />
+        icon: <GroupRoundedIcon />,
+        permission: undefined,
     },
     {
         name: "Produtos",
         route: "/produtos",
         page: <Produtos />,
-        icon: <InventoryIcon />
+        icon: <InventoryIcon />,
+        permission: undefined,
     },
     {
         name: "Notas Fiscais",
         route: "/notas-fiscais",
         page: <Nfe />,
-        icon: <LocalAtmRounded />
+        icon: <LocalAtmRounded />,
+        permission: 'NOTAS_FISCAIS',
+    },
+    {
+        name: "Pessoas",
+        route: "/pessoas",
+        page: <Pessoas />,
+        icon: <GroupIcon />,
+        permission: undefined
     }
 
 ]

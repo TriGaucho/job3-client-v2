@@ -1,15 +1,19 @@
 import { Box, Typography } from "@mui/material"
-import { useState } from "react"
-import logo from "../assets/img/Job3_logo_black.svg"
+import { useEffect, useState } from "react"
+import logo from "../../assets/img/Job3_logo_black.svg"
 export default () => {
-  const [year, setYear] = useState<number>(new Date().getFullYear())
+  const [year, setYear] = useState<number>()
 
+  useEffect(() => {
+    setYear(new Date().getFullYear())
+  }, [])
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: '5rem',
         flexDirection: {
           xs: 'column',
           md: 'row',

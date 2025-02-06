@@ -1,20 +1,30 @@
-import { Link, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Link, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
-export const MenuItem = (menuItem) => {
+export const MenuItem = ({
+    allowedPermissions,
+    ...menuItem
+}) => {
+    const hasAccess = !menuItem.permission || allowedPermissions.includes(menuItem.permission);
+
+    if (!hasAccess) return null;
+
     return (
-        <Link key={menuItem.route} href={menuItem.route} sx={{
-            textDecoration: "none",
-            color: "#333",
-            transition: "translate 0.3s ease-in-out",
-            '&:hover': {
-                background: (theme) => theme.palette.primary.main,
-                color: "#fff",
+        <Link
+            href={menuItem.route}
+            sx={{
+                textDecoration: "none",
+                color: "#333",
                 transition: "translate 0.3s ease-in-out",
-            },
-            '&.MuiListItemIcon-root': {
-                color: (theme) => theme.palette.primary.main,
-            },
-        }}>
+                '&:hover': {
+                    background: (theme) => theme.palette.primary.main,
+                    color: "#fff",
+                    transition: "translate 0.3s ease-in-out",
+                },
+                '&.MuiListItemIcon-root': {
+                    color: (theme) => theme.palette.primary.main,
+                },
+            }}
+        >
             <ListItemButton
                 sx={{
                     '&:hover': {

@@ -1,9 +1,9 @@
 import { IconButton, Typography } from "@mui/material";
 import React from 'react';
-import { TBotaoGenerico } from '../../types/TBotaoGenerico';
+import { TBotaoGenerico } from '../../types/TBotaoGenerico.type';
 
 
-export const BotaoGenerico: React.FC<TBotaoGenerico> = ({ icon, handle, label, variant = 'white', size = 'medium' }) => {
+export const BotaoGenerico: React.FC<TBotaoGenerico> = ({ icon, handle, label, variant = 'white' }) => {
 
     const iconColor = variant === 'black' ? '#000' : '#fff';
 

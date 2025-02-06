@@ -1,6 +1,6 @@
 import {
-    Box,
     Button,
+    Container,
     Paper,
     Table,
     TableBody,
@@ -9,80 +9,123 @@ import {
     TableHead,
     TableRow,
     Typography,
+    CircularProgress,
+    Box,
+    TextField // Adicionei o componente TextField
 } from '@mui/material';
-import React from 'react';
-import { useProdutoContext } from '../../../context/ProdutoContext';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useProdutoContext } from '../../../context/produtos.context';
+import { ProdutosService } from '../../../services/api/Produtos/produtos.service';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();
+    const [produtos, setProdutos] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para o termo de busca
+    const navigate = useNavigate();
 
-    // Dados fictícios
-    const produtos = [
-        {
-            id: 1,
-            codigo: '001',
-            descricao: 'Produto A',
-            unidade: 'un',
-            valorUnidade: '10.00',
-            valorAtacado: '8.00',
-            valorRevenda: '9.50',
-            valorTabela4: '7.50',
-            subclasse: 'Subclasse A',
-        },
-        {
-            id: 2,
-            codigo: '002',
-            descricao: 'Produto B',
-            unidade: 'kg',
-            valorUnidade: '20.00',
-            valorAtacado: '18.00',
-            valorRevenda: '19.00',
-            valorTabela4: '17.00',
-            subclasse: 'Subclasse B',
-        },
-    ];
+    const fetchProdutos = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert('Sessão expirada. Efetue o Login novamente');
+            navigate('/');
+        }
 
-    // Função para editar o produto e mudar para a aba de formulário
-    const handleEdit = (produto: any) => {
-        setProdutoAtual(produto);
-        setAbaAtual(0); // Navega para a aba de cadastro
+        try {
+            const productList = await ProdutosService.getAll('');
+            if (productList) {
+                setProdutos(productList.data);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar os produtos:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
+    useEffect(() => {
+        fetchProdutos();
+    }, []);
+
+    const handleEdit = (produto: any) => {
+        setProdutoAtual(produto);
+        setAbaAtual(0);
+    };
+
+    const filteredAndSortedProdutos = produtos
+        .filter(produto =>
+            produto.codigo.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .sort((a, b) => {
+            const descA = a.codigo.toLowerCase();
+            const descB = b.codigo.toLowerCase();
+            return descB.localeCompare(descA);
+        });
+
     return (
-        <Box sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4 }}>
             <Typography variant="h5">Lista de Produtos</Typography>
-            <TableContainer component={Paper} sx={{ mt: 2 }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Código</TableCell>
-                            <TableCell>Descrição</TableCell>
-                            <TableCell>Unidade</TableCell>
-                            <TableCell>Valor Unidade</TableCell>
-                            <TableCell>Ações</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {produtos.map((produto) => (
-                            <TableRow key={produto.id}>
-                                <TableCell>{produto.codigo}</TableCell>
-                                <TableCell>{produto.descricao}</TableCell>
-                                <TableCell>{produto.unidade}</TableCell>
-                                <TableCell>{produto.valorUnidade}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => handleEdit(produto)}
-                                    >
-                                        Editar
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
+
+            {/* Campo de busca */}
+            <TextField
+                label="Buscar por descrição"
+                variant="outlined"
+                fullWidth
+                sx={{ mt: 2, mb: 2 }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+
+            {!isLoading && filteredAndSortedProdutos.length == 0 && (
+                <Box padding={5}>
+                    <Typography variant='h5' textAlign={'center'}>Nenhuma pessoa listada</Typography>
+                </Box>
+            )}
+
+            {isLoading ? (
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '50vh'
+                }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                filteredAndSortedProdutos.length > 0 && (
+                    <TableContainer component={Paper} sx={{ mt: 2 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Código</TableCell>
+                                    <TableCell>Descrição</TableCell>
+                                    <TableCell>Valor Unidade</TableCell>
+                                    <TableCell>Ações</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {filteredAndSortedProdutos.map((produto) => (
+                                    <TableRow key={produto.id}>
+                                        <TableCell>{produto.codigo}</TableCell>
+                                        <TableCell>{produto.descricao}</TableCell>
+                                        <TableCell>{produto.valor_unidade}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => handleEdit(produto)}
+                                            >
+                                                Editar
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )
+            )}
+        </Container>
     );
 };

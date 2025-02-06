@@ -3,6 +3,7 @@ import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import {
     Box,
     Button,
+    Container,
     InputLabel,
     MenuItem,
     Paper,
@@ -21,7 +22,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import ToastMessage from '../../ToastMessage';
+import ToastMessage from '../../organisms/ToastMessage';
 
 interface ProdutoSelecionado {
     produto: string;
@@ -31,18 +32,18 @@ interface ProdutoSelecionado {
 }
 
 // Lista de empresas fictícias
-const empresas = [
-    { id: 1, nome: 'Empresa A' },
-    { id: 2, nome: 'Empresa B' },
-    { id: 3, nome: 'Empresa C' },
-];
+// const empresas = [
+//     { id: 1, nome: 'Empresa A' },
+//     { id: 2, nome: 'Empresa B' },
+//     { id: 3, nome: 'Empresa C' },
+// ];
 
 // Lista de clientes vinculados a empresas
-const clientesPorEmpresa = {
-    1: ['Cliente A1', 'Cliente A2', 'Cliente A3'],
-    2: ['Cliente B1', 'Cliente B2'],
-    3: ['Cliente C1', 'Cliente C2', 'Cliente C3', 'Cliente C4'],
-};
+// const clientesPorEmpresa = {
+//     1: ['Cliente A1', 'Cliente A2', 'Cliente A3'],
+//     2: ['Cliente B1', 'Cliente B2'],
+//     3: ['Cliente C1', 'Cliente C2', 'Cliente C3', 'Cliente C4'],
+// };
 
 // Lista de produtos com preços
 const produtosComPrecos = [
@@ -53,14 +54,14 @@ const produtosComPrecos = [
 
 export const Form = () => {
     const [dataPrevisao, setDataPrevisao] = useState(dayjs());
-    const [empresaId, setEmpresaId] = useState('');
+    const [empresaId] = useState('');
     const [cliente, setCliente] = useState('');
     const [produtoId, setProdutoId] = useState('');
     const [valor, setValor] = useState('');
     const [unidade, setUnidade] = useState('');
     const [quantidade, setQuantidade] = useState<number>(1);
     const [produtosDaProposta, setProdutosDaProposta] = useState<ProdutoSelecionado[]>([]);
-    const [clientes, setClientes] = useState<string[]>([]);
+    const [clientes] = useState<string[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [openToast, setOpenToast] = useState(false);
     const [toastStatus, setToastStatus] = useState<'success' | 'alert' | 'warn'>('success');
@@ -83,12 +84,12 @@ export const Form = () => {
         }
     }, []);
 
-    const handleEmpresaChange = (event: any) => {
-        const selectedEmpresaId = event.target.value;
-        setEmpresaId(selectedEmpresaId);
-        setClientes(clientesPorEmpresa[selectedEmpresaId] || []);
-        setCliente('');
-    };
+    // const handleEmpresaChange = (event: any) => {
+    //     const selectedEmpresaId = event.target.value;
+    //     setEmpresaId(selectedEmpresaId);
+    //     setClientes(clientesPorEmpresa[selectedEmpresaId] || []);
+    //     setCliente('');
+    // };
 
     const handleAddProduct = () => {
         const produtoSelecionado = produtosComPrecos.find(produto => produto.id === parseInt(produtoId));
@@ -178,8 +179,8 @@ export const Form = () => {
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Box p={3}>
+        <Container maxWidth="xl" sx={{ margin: '0 auto', padding: 3 }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Box
                     display="flex"
                     flexDirection={{ xs: 'column', sm: 'row' }}
@@ -373,13 +374,13 @@ export const Form = () => {
                         Limpar
                     </Button>
                 </Box>
-            </Box>
-            <ToastMessage
-                status={toastStatus}
-                message={message}
-                open={openToast}
-                onClose={handleCloseToast}
-            />
-        </LocalizationProvider>
+                <ToastMessage
+                    status={toastStatus}
+                    message={message}
+                    open={openToast}
+                    onClose={handleCloseToast}
+                />
+            </LocalizationProvider>
+        </Container>
     );
 };

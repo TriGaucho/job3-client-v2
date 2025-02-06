@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
-import { useClienteContext } from '../../../context/ClienteContext';
+import { useClienteContext } from '../../../context/clientes.context';
 
 export const Form = () => {
   const { clienteAtual }: any = useClienteContext();
@@ -56,7 +56,7 @@ export const Form = () => {
     }));
   };
 
-  const handleTypesChange = (event, value) => {
+  const handleTypesChange = (value) => {
     setFormData((prevData) => ({
       ...prevData,
       types: value,

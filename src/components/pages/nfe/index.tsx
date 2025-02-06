@@ -3,14 +3,11 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
-import { NfeProvider, useNfeContext } from '../../../context/NfeContext';
-import { ITabPanelProps } from '../../../types/ITabs';
-import Footer from '../../Footer';
-import Header from '../../templates/Header';
+import { NfeProvider, useNfeContext } from '../../../context/nfe.context';
 import { Form } from './Form';
 import { List } from './List';
 
-function CustomTabPanel(props: ITabPanelProps) {
+function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
@@ -36,24 +33,25 @@ function handleNavigateTab(index: number) {
 function NfeTabs() {
     const { abaAtual, setAbaAtual } = useNfeContext();
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
         setAbaAtual(newValue);
     };
+
 
     const ContentTabs = [
         {
             id: 0,
             label: 'Cadastro',
         },
-        {
-            id: 1,
-            label: 'Notas Fiscais',
-        },
+        // {
+        //     id: 1,
+        //     label: 'Notas Fiscais',
+        // },
     ];
 
     return (
         <>
-            <Header />
+
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box
                     sx={{
@@ -85,7 +83,7 @@ function NfeTabs() {
                     <List />
                 </CustomTabPanel>
             </Box>
-            <Footer />
+
         </>
     );
 }

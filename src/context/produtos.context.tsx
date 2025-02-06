@@ -23,7 +23,7 @@ const ProdutoContext = createContext<ProdutoContextData | undefined>(undefined);
 
 export const ProdutoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [produtoAtual, setProdutoAtual] = useState<Produto | null>(null);
-    const [abaAtual, setAbaAtual] = useState(1); // Inicializa na aba de Produtos
+    const [abaAtual, setAbaAtual] = useState(1);
 
     return (
         <ProdutoContext.Provider value={{ produtoAtual, setProdutoAtual, abaAtual, setAbaAtual }}>

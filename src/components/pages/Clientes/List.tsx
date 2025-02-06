@@ -1,12 +1,12 @@
 import {
-    Box,
     Button,
+    Container,
     Paper,
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     Typography
 } from '@mui/material';
 import React from 'react';
-import { Cliente, useClienteContext } from '../../../context/ClienteContext';
+import { Cliente, useClienteContext } from '../../../context/clientes.context';
 
 export const List: React.FC = () => {
     const { setClienteAtual, setAbaAtual } = useClienteContext();
@@ -36,7 +36,7 @@ export const List: React.FC = () => {
     };
 
     return (
-        <Box sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, display: 'grid' }}>
             <Typography variant="h5">Lista de Clientes</Typography>
             <TableContainer component={Paper} sx={{ mt: 2 }}>
                 <Table>
@@ -68,6 +68,6 @@ export const List: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Box>
+        </Container>
     );
 };

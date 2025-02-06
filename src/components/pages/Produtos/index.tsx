@@ -3,14 +3,15 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
-import { ProdutoProvider, useProdutoContext } from '../../../context/ProdutoContext';
-import { ITabPanelProps } from '../../../types/ITabs';
-import Footer from '../../Footer';
-import Header from '../../templates/Header';
+import { ProdutoProvider, useProdutoContext } from '../../../context/produtos.context';
 import { Form } from './Form';
 import { List } from './List';
 
-// Componente para exibir o conteúdo da aba selecionada
+interface ITabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
 function CustomTabPanel(props: ITabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -27,7 +28,6 @@ function CustomTabPanel(props: ITabPanelProps) {
     );
 }
 
-// Função para associar as abas ao painel correspondente
 function handleNavigateProposal(index: number) {
     return {
         id: `simple-tab-${index}`,
@@ -38,12 +38,11 @@ function handleNavigateProposal(index: number) {
 function ProdutosTabs() {
     const { abaAtual, setAbaAtual } = useProdutoContext();
 
-    // Função para alterar a aba ativa
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        console.log(event)
         setAbaAtual(newValue);
     };
 
-    // Configuração das abas
     const ContentTabs = [
         {
             id: 0,
@@ -57,7 +56,6 @@ function ProdutosTabs() {
 
     return (
         <>
-            <Header />
             <Box sx={{ width: '100%', minHeight: '100dvh' }}>
                 <Box
                     sx={{
@@ -89,7 +87,6 @@ function ProdutosTabs() {
                     <List />
                 </CustomTabPanel>
             </Box>
-            <Footer />
         </>
     );
 }
