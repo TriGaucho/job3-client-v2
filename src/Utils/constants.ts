@@ -1,0 +1,1 @@
+export const GENERAL_PATH = '/job3-client-v2'
