@@ -100,7 +100,6 @@ export const Form = () => {
         cidade: formData.city,
         uf: formData.uf,
       };
-      console.log(data)
       const criaPessoa = await PessoasService.create(data)
       if (criaPessoa) {
         handleOpenToast("success", "Pessoa salva com sucesso!");

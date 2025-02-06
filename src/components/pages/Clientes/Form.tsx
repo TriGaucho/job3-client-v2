@@ -56,7 +56,7 @@ export const Form = () => {
     }));
   };
 
-  const handleTypesChange = (event, value) => {
+  const handleTypesChange = (value) => {
     setFormData((prevData) => ({
       ...prevData,
       types: value,

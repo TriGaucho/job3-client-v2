@@ -23,7 +23,6 @@ export default () => {
         if (!token) return navigate('/login')
 
         const data = decodeJWT(token)
-        console.log(data)
 
         setUser(data.email)
 

@@ -1,14 +1,9 @@
-import { Link, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { TMenuItem } from "../../types/TMenu.type"
-
-interface MenuItemProps extends TMenuItem {
-    allowedPermissions: string[];
-}
+import { Link, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 export const MenuItem = ({
     allowedPermissions,
     ...menuItem
-}: MenuItemProps) => {
+}) => {
     const hasAccess = !menuItem.permission || allowedPermissions.includes(menuItem.permission);
 
     if (!hasAccess) return null;

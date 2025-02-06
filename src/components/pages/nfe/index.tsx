@@ -4,13 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
 import { NfeProvider, useNfeContext } from '../../../context/nfe.context';
-import { ITabPanelProps } from '../../../types/ITabs.type';
-import Footer from '../../templates/Footer';
-import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';
 
-function CustomTabPanel(props: ITabPanelProps) {
+function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
@@ -36,9 +33,10 @@ function handleNavigateTab(index: number) {
 function NfeTabs() {
     const { abaAtual, setAbaAtual } = useNfeContext();
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
         setAbaAtual(newValue);
     };
+
 
     const ContentTabs = [
         {

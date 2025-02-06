@@ -5,16 +5,30 @@ import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     Typography
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Cliente, useClienteContext } from '../../../context/clientes.context';
 
 export const List: React.FC = () => {
     const { setClienteAtual, setAbaAtual } = useClienteContext();
-    const [clientes, setClientes] = useState([]);
 
-    useEffect(() => {
-
-    }, [])
+    const clientes: Cliente[] = [
+        // Dados fictícios
+        {
+            id: 1,
+            name: 'João Silva',
+            fantasia: 'Fantasia A',
+            address: 'Rua A',
+            neighborhood: 'Bairro A',
+            city: 'Cidade A',
+            state: 'SP',
+            zip: '12345-678',
+            email: 'joao@gmail.com',
+            ieRg: '123456789',
+            cpfCnpj: '123.456.789-00',
+            phone: '(11) 99999-9999',
+            types: ['Cliente'],
+        },
+    ];
 
     const handleEdit = (cliente: Cliente) => {
         setClienteAtual(cliente);

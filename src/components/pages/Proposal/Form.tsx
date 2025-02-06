@@ -32,18 +32,18 @@ interface ProdutoSelecionado {
 }
 
 // Lista de empresas fictícias
-const empresas = [
-    { id: 1, nome: 'Empresa A' },
-    { id: 2, nome: 'Empresa B' },
-    { id: 3, nome: 'Empresa C' },
-];
+// const empresas = [
+//     { id: 1, nome: 'Empresa A' },
+//     { id: 2, nome: 'Empresa B' },
+//     { id: 3, nome: 'Empresa C' },
+// ];
 
 // Lista de clientes vinculados a empresas
-const clientesPorEmpresa = {
-    1: ['Cliente A1', 'Cliente A2', 'Cliente A3'],
-    2: ['Cliente B1', 'Cliente B2'],
-    3: ['Cliente C1', 'Cliente C2', 'Cliente C3', 'Cliente C4'],
-};
+// const clientesPorEmpresa = {
+//     1: ['Cliente A1', 'Cliente A2', 'Cliente A3'],
+//     2: ['Cliente B1', 'Cliente B2'],
+//     3: ['Cliente C1', 'Cliente C2', 'Cliente C3', 'Cliente C4'],
+// };
 
 // Lista de produtos com preços
 const produtosComPrecos = [
@@ -54,14 +54,14 @@ const produtosComPrecos = [
 
 export const Form = () => {
     const [dataPrevisao, setDataPrevisao] = useState(dayjs());
-    const [empresaId, setEmpresaId] = useState('');
+    const [empresaId] = useState('');
     const [cliente, setCliente] = useState('');
     const [produtoId, setProdutoId] = useState('');
     const [valor, setValor] = useState('');
     const [unidade, setUnidade] = useState('');
     const [quantidade, setQuantidade] = useState<number>(1);
     const [produtosDaProposta, setProdutosDaProposta] = useState<ProdutoSelecionado[]>([]);
-    const [clientes, setClientes] = useState<string[]>([]);
+    const [clientes] = useState<string[]>([]);
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [openToast, setOpenToast] = useState(false);
     const [toastStatus, setToastStatus] = useState<'success' | 'alert' | 'warn'>('success');
@@ -84,12 +84,12 @@ export const Form = () => {
         }
     }, []);
 
-    const handleEmpresaChange = (event: any) => {
-        const selectedEmpresaId = event.target.value;
-        setEmpresaId(selectedEmpresaId);
-        setClientes(clientesPorEmpresa[selectedEmpresaId] || []);
-        setCliente('');
-    };
+    // const handleEmpresaChange = (event: any) => {
+    //     const selectedEmpresaId = event.target.value;
+    //     setEmpresaId(selectedEmpresaId);
+    //     setClientes(clientesPorEmpresa[selectedEmpresaId] || []);
+    //     setCliente('');
+    // };
 
     const handleAddProduct = () => {
         const produtoSelecionado = produtosComPrecos.find(produto => produto.id === parseInt(produtoId));

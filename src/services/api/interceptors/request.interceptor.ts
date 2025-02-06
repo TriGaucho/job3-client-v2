@@ -1,5 +1,3 @@
-import { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
-
 export const requestInterceptor = (config) => {
   const token = localStorage.getItem("token");
 

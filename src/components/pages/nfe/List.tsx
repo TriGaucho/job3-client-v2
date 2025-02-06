@@ -29,19 +29,9 @@ const clientesPorEmpresa = {
     ],
 };
 
-interface NFeData {
-    numero: string;
-    pessoa_id: number;
-    produtos: Array<{
-        produto_id: number;
-        quantidade: number;
-        valor_unitario: number;
-    }>;
-}
-
 export const List: React.FC = () => {
     const { setNfeAtual, setAbaAtual } = useNfeContext();
-    const [notas, setNotas] = useState<NFeData[]>([]);
+    const [notas, setNotas] = useState<any>([]);
 
     useEffect(() => {
         const carregarNotas = () => {
@@ -61,13 +51,13 @@ export const List: React.FC = () => {
         return 'Cliente não encontrado';
     };
 
-    const calcularTotal = (produtos: NFeData['produtos']) => {
+    const calcularTotal = (produtos) => {
         return produtos.reduce((total, produto) =>
             total + (produto.quantidade * produto.valor_unitario), 0
         ).toFixed(2);
     };
 
-    const handleEdit = (nota: NFeData) => {
+    const handleEdit = (nota) => {
         setNfeAtual({
             ...nota,
             pessoa_id: nota.pessoa_id.toString()

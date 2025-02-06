@@ -1,5 +1,6 @@
 import {
-  Button,
+  Box,
+  CircularProgress,
   Container,
   Paper,
   Table,
@@ -8,10 +9,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  CircularProgress,
-  Box,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +31,9 @@ export const List: React.FC = () => {
 
     try {
       const pessoasList = await PessoasService.getAll();
-      setPessoas(pessoasList);
+      if (pessoasList) {
+        setPessoas(pessoasList);
+      }
     } catch (error) {
       console.error('Erro ao buscar as pessoas:', error);
     } finally {

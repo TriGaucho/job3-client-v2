@@ -14,6 +14,7 @@ import {
   MenuItem,
   Paper,
   Select,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableCell,
@@ -70,7 +71,7 @@ const produtosComPrecos = [
 ];
 
 export const Form: React.FC = () => {
-  const { nfeAtual, setNfeAtual } = useNfeContext();
+  const { nfeAtual } = useNfeContext();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     numero: "",
@@ -97,9 +98,7 @@ export const Form: React.FC = () => {
     }
   }, []);
 
-  const handleEmpresaChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleEmpresaChange = (event: SelectChangeEvent): void => {
     const selectedEmpresaId = Number(event.target.value);
     setEmpresaId(selectedEmpresaId.toString());
     setClientes(clientesPorEmpresa[selectedEmpresaId] || []);

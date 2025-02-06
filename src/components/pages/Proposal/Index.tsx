@@ -2,8 +2,6 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
-import Footer from '../../templates/Footer';
-import Header from '../../templates/Header';
 import { Form } from './Form';
 import { List } from './List';
 
@@ -40,6 +38,7 @@ export default function Proposta() {
     const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        console.log(event)
         setValue(newValue);
     };
 

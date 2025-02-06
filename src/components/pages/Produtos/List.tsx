@@ -34,7 +34,9 @@ export const List: React.FC = () => {
 
         try {
             const productList = await ProdutosService.getAll('');
-            setProdutos(productList.data);
+            if (productList) {
+                setProdutos(productList.data);
+            }
         } catch (error) {
             console.error('Erro ao buscar os produtos:', error);
         } finally {
