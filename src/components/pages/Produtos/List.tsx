@@ -30,7 +30,7 @@ export const List: React.FC = () => {
         const token = localStorage.getItem("token");
         if (!token) {
             alert('Sessão expirada. Efetue o Login novamente');
-            navigate(`${GENERAL_PATH}/`);
+            navigate(`/`);
         }
 
         try {

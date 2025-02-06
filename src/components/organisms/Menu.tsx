@@ -16,7 +16,7 @@ export default () => {
     useEffect(() => {
         const token = localStorage.getItem('token')
 
-        if(!token) return navigate(`${GENERAL_PATH}/login`) 
+        if(!token) return navigate(`/login`) 
 
         const data = decodeJWT(token)
 

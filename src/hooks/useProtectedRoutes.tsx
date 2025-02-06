@@ -13,7 +13,7 @@ export const useProtectedRoutes = (
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate(`${GENERAL_PATH}/login`);
+      navigate(`/login`);
     }
   }, [isAuthenticated, navigate]);
 

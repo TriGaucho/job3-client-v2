@@ -21,7 +21,7 @@ export default () => {
     const handleUserData = () => {
         const token = localStorage.getItem('token')
 
-        if (!token) return navigate(`${GENERAL_PATH}/login`)
+        if (!token) return navigate(`/login`)
 
         const data = decodeJWT(token)
 
@@ -38,7 +38,7 @@ export default () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate(`${GENERAL_PATH}/`);
+        navigate(`/`);
     };
 
     return (

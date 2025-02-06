@@ -10,7 +10,7 @@ const useAuthGuard = () => {
     const token = localStorage.getItem("token");
 
     if (!token && location.pathname !== "/login") {
-      navigate(`${GENERAL_PATH}/login`, { replace: true });
+      navigate(`/login`, { replace: true });
     }
   }, [location, navigate]);
 };

@@ -4,9 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Job3_logo_black from '../../assets/img/Job3_logo_black.svg';
-import ToastMessage from '../organisms/ToastMessage';
 import api from '../../services/api';
-import { GENERAL_PATH } from '../../Utils/constants';
+import ToastMessage from '../organisms/ToastMessage';
 
 export default () => {
     const [email, setEmail] = useState('');
@@ -30,7 +29,7 @@ export default () => {
             });
 
             localStorage.setItem('token', response.data.data);
-            navigate(`${GENERAL_PATH}/`);
+            navigate(`/`);
         } catch (e) {
             setToast({
                 open: true,
