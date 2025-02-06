@@ -11,48 +11,47 @@ import Proposta from '../components/pages/Proposal/Index';
 import { MenuLayout } from '../types/TMenu.type';
 import Pessoas from '../components/pages/Pessoas';
 import GroupIcon from '@mui/icons-material/Group';
-import { GENERAL_PATH } from '../Utils/constants';
 
 
 export const menuLayout: MenuLayout = [
     {
         name: "Home",
-        route: `${GENERAL_PATH}/`,
+        route: "/",
         page: <Home />,
         icon: <HomeRoundedIcon />,
         permission: undefined,
     },
     {
         name: "Proposta",
-        route: `${GENERAL_PATH}/proposta`,
+        route: "/proposta",
         page: <Proposta />,
         icon: <NoteAltRoundedIcon />,
         permission: 'PROPOSTAS',
     },
     {
         name: "Clientes",
-        route: `${GENERAL_PATH}/clientes`,
+        route: "/clientes",
         page: <Clientes />,
         icon: <GroupRoundedIcon />,
         permission: undefined,
     },
     {
         name: "Produtos",
-        route: `${GENERAL_PATH}/produtos`,
+        route: "/produtos",
         page: <Produtos />,
         icon: <InventoryIcon />,
         permission: undefined,
     },
     {
         name: "Notas Fiscais",
-        route: `${GENERAL_PATH}/notas-fiscais`,
+        route: "/notas-fiscais",
         page: <Nfe />,
         icon: <LocalAtmRounded />,
         permission: 'NOTAS_FISCAIS',
     },
     {
         name: "Pessoas",
-        route: `${GENERAL_PATH}/pessoas`,
+        route: "/pessoas",
         page: <Pessoas />,
         icon: <GroupIcon />,
         permission: undefined
