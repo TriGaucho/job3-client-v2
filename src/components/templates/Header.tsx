@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { decodeJWT } from '../../Utils';
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import Menu from '../organisms/Menu';
-import { GENERAL_PATH } from '../../Utils/constants';
 
 export default () => {
     const navigate = useNavigate();

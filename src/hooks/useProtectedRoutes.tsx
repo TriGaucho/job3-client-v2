@@ -1,10 +1,9 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { menuLayout } from '../routes/menu';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from '../components/pages/Login';
 import NotFound from '../components/pages/NotFound';
+import { menuLayout } from '../routes/menu';
 import { TMenuItem } from '../types/TMenu.type';
-import { GENERAL_PATH } from '../Utils/constants';
 
 export const useProtectedRoutes = (
   isAuthenticated: boolean

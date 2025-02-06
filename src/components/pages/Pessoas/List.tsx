@@ -15,7 +15,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PessoasService } from '../../../services/api/Pessoas/pessoas.service';
-import { GENERAL_PATH } from '../../../Utils/constants';
 
 export const List: React.FC = () => {
   const [pessoas, setPessoas] = useState<any[]>([]);

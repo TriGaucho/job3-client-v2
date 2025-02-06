@@ -2,11 +2,10 @@ import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRigh
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Drawer, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { decodeJWT } from '../../Utils';
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import { MenuList } from "../molecules/MenuList";
-import { decodeJWT } from '../../Utils';
-import { useNavigate } from 'react-router-dom';
-import { GENERAL_PATH } from '../../Utils/constants';
 
 export default () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
