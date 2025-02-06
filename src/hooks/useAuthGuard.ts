@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { GENERAL_PATH } from "../Utils/constants";
 
 const useAuthGuard = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const useAuthGuard = () => {
     const token = localStorage.getItem("token");
 
     if (!token && location.pathname !== "/login") {
-      navigate("/login", { replace: true });
+      navigate(`${GENERAL_PATH}/login`, { replace: true });
     }
   }, [location, navigate]);
 };

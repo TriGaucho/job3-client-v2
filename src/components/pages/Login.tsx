@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Job3_logo_black from '../../assets/img/Job3_logo_black.svg';
 import ToastMessage from '../organisms/ToastMessage';
 import api from '../../services/api';
+import { GENERAL_PATH } from '../../Utils/constants';
 
 export default () => {
     const [email, setEmail] = useState('');
@@ -29,7 +30,7 @@ export default () => {
             });
 
             localStorage.setItem('token', response.data.data);
-            navigate('/');
+            navigate(`${GENERAL_PATH}/`);
         } catch (e) {
             setToast({
                 open: true,

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { decodeJWT } from '../../Utils';
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import Menu from '../organisms/Menu';
+import { GENERAL_PATH } from '../../Utils/constants';
 
 export default () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default () => {
     const handleUserData = () => {
         const token = localStorage.getItem('token')
 
-        if (!token) return navigate('/login')
+        if (!token) return navigate(`${GENERAL_PATH}/login`)
 
         const data = decodeJWT(token)
 
@@ -37,7 +38,7 @@ export default () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/');
+        navigate(`${GENERAL_PATH}/`);
     };
 
     return (

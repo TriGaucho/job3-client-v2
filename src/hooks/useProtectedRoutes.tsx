@@ -4,6 +4,7 @@ import { menuLayout } from '../routes/menu';
 import Login from '../components/pages/Login';
 import NotFound from '../components/pages/NotFound';
 import { TMenuItem } from '../types/TMenu.type';
+import { GENERAL_PATH } from '../Utils/constants';
 
 export const useProtectedRoutes = (
   isAuthenticated: boolean
@@ -12,7 +13,7 @@ export const useProtectedRoutes = (
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate(`${GENERAL_PATH}/login`);
     }
   }, [isAuthenticated, navigate]);
 

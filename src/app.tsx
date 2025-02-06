@@ -7,6 +7,7 @@ import Login from "./components/pages/Login"
 import { menuLayout } from "./routes/menu"
 import { theme } from "./theme/theme"
 import { MenuLayout } from "./types/TMenu.type"
+import { GENERAL_PATH } from "./Utils/constants"
 
 export default () => {
     const createRoutes = (menu: MenuLayout) => {
@@ -29,11 +30,11 @@ export default () => {
             <BrowserRouter>
                 <Routes>
                     {/* Rota de login separada do BaseLayout */}
-                    <Route path="/login" element={<Login />} />
+                    <Route path={`${GENERAL_PATH}/login`} element={<Login />} />
 
                     {/* Rotas que utilizam o BaseLayout */}
                     <Route
-                        path="/*"
+                        path={`${GENERAL_PATH}/*`}
                         element={
                             <BaseLayout>
                                 <Routes>{createRoutes(menuLayout)}</Routes>

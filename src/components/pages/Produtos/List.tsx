@@ -17,6 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProdutoContext } from '../../../context/produtos.context';
 import { ProdutosService } from '../../../services/api/Produtos/produtos.service';
+import { GENERAL_PATH } from '../../../Utils/constants';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();
@@ -29,7 +30,7 @@ export const List: React.FC = () => {
         const token = localStorage.getItem("token");
         if (!token) {
             alert('Sessão expirada. Efetue o Login novamente');
-            navigate('/');
+            navigate(`${GENERAL_PATH}/`);
         }
 
         try {

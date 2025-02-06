@@ -6,6 +6,7 @@ import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import { MenuList } from "../molecules/MenuList";
 import { decodeJWT } from '../../Utils';
 import { useNavigate } from 'react-router-dom';
+import { GENERAL_PATH } from '../../Utils/constants';
 
 export default () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
@@ -15,7 +16,7 @@ export default () => {
     useEffect(() => {
         const token = localStorage.getItem('token')
 
-        if(!token) return navigate('/login') 
+        if(!token) return navigate(`${GENERAL_PATH}/login`) 
 
         const data = decodeJWT(token)
 
