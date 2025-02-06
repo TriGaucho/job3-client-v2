@@ -11,7 +11,7 @@ import {
     Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useNfeContext } from '../../../context/NfeContext';
+import { useNfeContext } from '../../../context/nfe.context';
 
 // Dados mockados consistentes com o formulário
 const clientesPorEmpresa = {

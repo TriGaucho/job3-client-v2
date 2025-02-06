@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
-import { NfeProvider, useNfeContext } from '../../../context/NfeContext';
+import { NfeProvider, useNfeContext } from '../../../context/nfe.context';
 import { ITabPanelProps } from '../../../types/ITabs.type';
 import Footer from '../../templates/Footer';
 import Header from '../../templates/Header';

@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useProdutoContext } from '../../../context/ProdutoContext';
-import { ProdutosService } from '../../../services/api/Produtos/Produtos';
+import { useProdutoContext } from '../../../context/produtos.context';
+import { ProdutosService } from '../../../services/api/Produtos/produtos.service';
 
 export const List: React.FC = () => {
     const { setProdutoAtual, setAbaAtual } = useProdutoContext();
@@ -75,6 +75,12 @@ export const List: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
+            {!isLoading && filteredAndSortedProdutos.length == 0 && (
+                <Box padding={5}>
+                    <Typography variant='h5' textAlign={'center'}>Nenhuma pessoa listada</Typography>
+                </Box>
+            )}
+
             {isLoading ? (
                 <Box sx={{
                     display: 'flex',
@@ -85,36 +91,38 @@ export const List: React.FC = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <TableContainer component={Paper} sx={{ mt: 2 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Código</TableCell>
-                                <TableCell>Descrição</TableCell>
-                                <TableCell>Valor Unidade</TableCell>
-                                <TableCell>Ações</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredAndSortedProdutos.map((produto) => (
-                                <TableRow key={produto.id}>
-                                    <TableCell>{produto.codigo}</TableCell>
-                                    <TableCell>{produto.descricao}</TableCell>
-                                    <TableCell>{produto.valor_unidade}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => handleEdit(produto)}
-                                        >
-                                            Editar
-                                        </Button>
-                                    </TableCell>
+                filteredAndSortedProdutos.length > 0 && (
+                    <TableContainer component={Paper} sx={{ mt: 2 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Código</TableCell>
+                                    <TableCell>Descrição</TableCell>
+                                    <TableCell>Valor Unidade</TableCell>
+                                    <TableCell>Ações</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {filteredAndSortedProdutos.map((produto) => (
+                                    <TableRow key={produto.id}>
+                                        <TableCell>{produto.codigo}</TableCell>
+                                        <TableCell>{produto.descricao}</TableCell>
+                                        <TableCell>{produto.valor_unidade}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => handleEdit(produto)}
+                                            >
+                                                Editar
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )
             )}
         </Container>
     );

@@ -1,14 +1,15 @@
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { ClienteProvider, useClienteContext } from '../../../context/ClienteContext';
-import { ITabPanelProps } from '../../../types/ITabs.type';
-import Footer from '../../templates/Footer';
-import Header from '../../templates/Header';
+import { ClienteProvider, useClienteContext } from '../../../context/clientes.context';
 import { Form } from './Form';
 import { List } from './List';
 
-
+interface ITabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
 
 function CustomTabPanel(props: ITabPanelProps) {
     const { children, value, index, ...other } = props;

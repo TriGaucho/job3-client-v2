@@ -9,6 +9,8 @@ import Nfe from '../components/pages/nfe';
 import Produtos from '../components/pages/Produtos';
 import Proposta from '../components/pages/Proposal/Index';
 import { MenuLayout } from '../types/TMenu.type';
+import Pessoas from '../components/pages/Pessoas';
+import GroupIcon from '@mui/icons-material/Group';
 
 
 export const menuLayout: MenuLayout = [
@@ -46,6 +48,13 @@ export const menuLayout: MenuLayout = [
         page: <Nfe />,
         icon: <LocalAtmRounded />,
         permission: 'NOTAS_FISCAIS',
+    },
+    {
+        name: "Pessoas",
+        route: "/pessoas",
+        page: <Pessoas />,
+        icon: <GroupIcon />,
+        permission: undefined
     }
 
 ]

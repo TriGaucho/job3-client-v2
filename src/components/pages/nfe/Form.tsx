@@ -1,4 +1,3 @@
-// Formulário de NFe refatorado
 import {
   ClearRounded,
   DeleteRounded,
@@ -27,8 +26,8 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React, { useEffect, useState } from "react";
-import { useNfeContext } from "../../../context/NfeContext";
-import { NotasFicaisService } from "../../../services/api/NotasFiscais/NotasFiscias";
+import { useNfeContext } from "../../../context/nfe.context";
+import { NotasFicaisService } from "../../../services/api/NotasFiscais/nfe.service";
 import ToastMessage from "../../organisms/ToastMessage";
 
 interface ProdutoSelecionado {

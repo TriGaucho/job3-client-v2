@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 
-import { ProdutoProvider, useProdutoContext } from '../../../context/ProdutoContext';
+import { ProdutoProvider, useProdutoContext } from '../../../context/produtos.context';
 import { Form } from './Form';
 import { List } from './List';
 

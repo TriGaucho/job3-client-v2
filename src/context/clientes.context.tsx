@@ -39,6 +39,7 @@ export const ClienteProvider = ({ children }: any) => {
 export const useClienteContext = (): ClienteContextProps => {
     const context = useContext(ClienteContext);
     if (!context) {
+        console.log('cliente context', context)
         throw new Error('useClienteContext deve ser usado dentro de um ClienteProvider');
     }
     return context;

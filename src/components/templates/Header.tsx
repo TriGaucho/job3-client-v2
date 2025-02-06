@@ -6,9 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { decodeJWT } from '../../Utils';
 import { BotaoGenerico } from '../atoms/BotaoGenerico';
 import Menu from '../organisms/Menu';
-import { decodeJWT } from '../../Utils';
 
 export default () => {
     const navigate = useNavigate();
