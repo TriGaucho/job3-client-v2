@@ -1,7 +1,6 @@
 {
   "name": "job3-front-end",
-  "homepage": "./",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
