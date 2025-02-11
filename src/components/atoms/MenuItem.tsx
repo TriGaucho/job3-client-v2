@@ -10,7 +10,7 @@ export const MenuItem = ({
 
     return (
         <Link
-            href={`/job3-client-v2${menuItem.route}`}
+            href={`${menuItem.route}`}
             sx={{
                 textDecoration: "none",
                 color: "#333",

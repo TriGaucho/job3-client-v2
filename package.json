@@ -1,6 +1,6 @@
 {
   "name": "job3-front-end",
-  "homepage": "/job3-client-v2",
+  "homepage": "./",
   "private": true,
   "version": "0.0.0",
   "type": "module",
