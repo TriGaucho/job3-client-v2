@@ -26,7 +26,7 @@ export default () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <BrowserRouter basename="job3-client-v2">
+            <BrowserRouter>
                 <Routes>
                     {/* Rota de login separada do BaseLayout */}
                     <Route path="/login" element={<Login />} />
