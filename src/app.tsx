@@ -22,16 +22,26 @@ export default () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           {/* Rota de login separada do BaseLayout */}
           <Route path="/login" element={<Login />} />
-        </Routes>
 
-        {/* Rotas que utilizam o BaseLayout */}
-        <BaseLayout>
-          <Routes>{createRoutes(menuLayout)}</Routes>
-        </BaseLayout>
+          {/* Rotas que utilizam o BaseLayout */}
+          <Route
+            path="/*"
+            element={
+              <BaseLayout>
+                <Routes>{createRoutes(menuLayout)}</Routes>
+              </BaseLayout>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
