@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "./",
+  "homepage": "/job3-client-v2",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
